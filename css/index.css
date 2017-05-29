@@ -374,6 +374,13 @@
 		line-height: 28px;
 		font-size: 18px;
 	}
+
+	.modal-delete-btn{
+		width: 90px;
+		height: 30px;
+		line-height: 28px;
+		font-size: 18px;
+	}
 }
 
 .hide{
