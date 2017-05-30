@@ -2,36 +2,28 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component.js';
-import { LoginComponent } from './login/login.component.js';
+import { BaseComponent } from './base/base.component.js';
 import { ProductComponent } from './product/product.component.js';
-import { AboutComponent } from './about/about.component.js';
+import { ContactComponent } from './contact/contact.component.js';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 @NgModule({
     imports: [BrowserModule, RouterModule.forRoot([
         {
-            path: 'login',
-            component: LoginComponent
+            path: 'base',
+            component: BaseComponent
         },
         {
-            path: 'product',
-            component: ProductComponent
-        },
-        {
-            path: 'about',
-            component: AboutComponent
-        },
-        { 
-            path: '**', 
-            component: LoginComponent
+            path: '**',
+            component: BaseComponent
         }
     ]), HttpModule,
-    JsonpModule],
+        JsonpModule],
     declarations: [
-    AppComponent, 
-    LoginComponent, 
-    ProductComponent, 
-    AboutComponent],
+        AppComponent,
+        BaseComponent,
+        ProductComponent,
+        ContactComponent],
     bootstrap: [AppComponent]
 })
 

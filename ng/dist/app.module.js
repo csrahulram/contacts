@@ -10,9 +10,9 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
 var app_component_js_1 = require("./app.component.js");
-var login_component_js_1 = require("./login/login.component.js");
+var base_component_js_1 = require("./base/base.component.js");
 var product_component_js_1 = require("./product/product.component.js");
-var about_component_js_1 = require("./about/about.component.js");
+var contact_component_js_1 = require("./contact/contact.component.js");
 var http_1 = require("@angular/http");
 var AppModule = (function () {
     function AppModule() {
@@ -23,28 +23,20 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, router_1.RouterModule.forRoot([
                 {
-                    path: 'login',
-                    component: login_component_js_1.LoginComponent
-                },
-                {
-                    path: 'product',
-                    component: product_component_js_1.ProductComponent
-                },
-                {
-                    path: 'about',
-                    component: about_component_js_1.AboutComponent
+                    path: 'base',
+                    component: base_component_js_1.BaseComponent
                 },
                 {
                     path: '**',
-                    component: login_component_js_1.LoginComponent
+                    component: base_component_js_1.BaseComponent
                 }
             ]), http_1.HttpModule,
             http_1.JsonpModule],
         declarations: [
             app_component_js_1.AppComponent,
-            login_component_js_1.LoginComponent,
+            base_component_js_1.BaseComponent,
             product_component_js_1.ProductComponent,
-            about_component_js_1.AboutComponent
+            contact_component_js_1.ContactComponent
         ],
         bootstrap: [app_component_js_1.AppComponent]
     })
