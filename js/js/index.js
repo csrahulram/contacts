@@ -1,19 +1,27 @@
 'use strict';
 (function () {
-	var data_modal = [
-		{ 'id': 1, 'name': 'Rahul', 'number': '9962293022', 'gender': 'male' },
-		{ 'id': 2, 'name': 'Swetha', 'number': '9962293023', 'gender': 'female' },
-		{ 'id': 3, 'name': 'Vinoth', 'number': '9962293024', 'gender': 'male' },
-		{ 'id': 4, 'name': 'Naveen', 'number': '9962293025', 'gender': 'male' },
-		{ 'id': 5, 'name': 'Vivek', 'number': '9962293026', 'gender': 'male' }
-	];
-
 	var search_modal = [];
 
 	var currentEdit = {};
 
 	function $(id) {
 		return document.getElementById(id);
+	}
+
+	function ajax(url, data, cb) {
+		var http = new XMLHttpRequest();
+		var params = data;
+		http.open("POST", 'http://localhost:8080/' + url, true);
+
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+		http.onreadystatechange = function () {//Call a function when the state changes.
+			if (http.readyState == 4 && http.status == 200) {
+				cb(JSON.parse(http.responseText));
+			}
+		}
+		http.send(JSON.stringify(params));
 	}
 
 	$('add_btn').addEventListener('click', function (e) {
@@ -77,14 +85,10 @@
 
 	document.addEventListener('delete', function (e) {
 		if (e.detail == 'confirm_modal') {
-
-			data_modal.forEach(function (ele, ind) {
-				if (currentEdit.id == ele.id) {
-					data_modal.splice(ind, 1);
-				}
+			ajax('api/delete', { 'id': currentEdit.id }, function (data) {
+				render(data);
+				closeModal('confirm_modal');
 			});
-			closeModal('confirm_modal');
-			render(data_modal);
 		} else {
 			currentEdit.id = parseInt(e.detail.getElementsByClassName('id')[0].innerHTML);
 			openModal('confirm_modal');
@@ -94,41 +98,30 @@
 	document.addEventListener('add', function (e) {
 		var updateBtn = document.getElementsByClassName('modal-add-btn')[0];
 		if (updateBtn.innerHTML == 'Update') {
-			data_modal.forEach(function (ele) {
-				if (ele.id == currentEdit.id) {
-					ele.name = $('modal_name').value;
-					ele.number = $('modal_number').value;
-				}
+			var ele = {};
+			ele.name = $('modal_name').value;
+			ele.number = $('modal_number').value;
+			ele.id = currentEdit.id;
+			ajax('api/update', ele, function (data) {
+				closeModal(e.detail);
+				render(data);
 			});
 		} else if (updateBtn.innerHTML == 'Add') {
 			var ele = {};
 			ele.name = $('modal_name').value;
 			ele.number = $('modal_number').value;
-			ele.id = data_modal.length + 1;
-			data_modal.push(ele);
+			ajax('api/add', ele, function (data) {
+				closeModal(e.detail);
+				render(data);
+			});
 		}
-
-		closeModal(e.detail);
-		render(data_modal);
 	});
 
-	document.addEventListener('search', function(e){
-		search($('search_input').value);
-	});
-
-	function search(query){
-		search_modal = [];
-		data_modal.forEach(function(ele){
-			var a = ele.name.toLocaleLowerCase();
-			var b = query.toLocaleLowerCase();
-			var c = ele.number.toLocaleLowerCase();
-			if(a.indexOf(b) != -1 || c.indexOf(b) != -1){
-				search_modal.push(ele);
-			}
+	document.addEventListener('search', function (e) {
+		ajax('api/search', { 'query': $('search_input').value }, function (data) {
+			render(data);
 		});
-
-		render(search_modal);
-	}
+	});
 
 	function render(model) {
 		$('contact_view').innerHTML = '';
@@ -165,5 +158,7 @@
 		$('count').innerHTML = model.length;
 	}
 
-	render(data_modal);
+	ajax('api/read', {}, function (data) {
+		render(data);
+	});
 }());

@@ -1,8 +1,0 @@
-Working with visual studio code
-
-1. Install visual studio code latest
-2. Click file menu and open folder
-3. The navigation bar appears once open the folder
-4. We can browse the files open and edit
-5. We can invoke cmd from code itself
-6. Press ctrl + ~ will open prompt

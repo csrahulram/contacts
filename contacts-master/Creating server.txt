@@ -1,8 +1,0 @@
-Creating a local server
-
-1. Install node js in your system
-2. npm i -g http-server - type this command
-3. Inside the project folder open cmd prompt
-4. Use shift + right click to open the command
-5. Type 'http-server' without quotes
-6. Open browser and navigate to http://localhost:8080

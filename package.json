@@ -1,0 +1,43 @@
+{
+  "name": "angular-master",
+  "version": "1.0.0",
+  "description": "Angular quick start",
+  "main": "app.js",
+  "scripts": {
+    "start":"node app.js",
+    "js-dev":"nodemon app.js",
+    "ng-dev": "concurrently \"nodemon app.js\" \"tsc -w\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/common": "^2.4.10",
+    "@angular/compiler": "^2.4.10",
+    "@angular/core": "^2.4.10",
+    "@angular/forms": "^2.4.10",
+    "@angular/http": "^2.4.10",
+    "@angular/platform-browser": "^2.4.10",
+    "@angular/platform-browser-dynamic": "^2.4.10",
+    "@angular/router": "^3.4.10",
+    "angular-in-memory-web-api": "^0.2.4",
+    "body-parser": "^1.16.0",
+    "bootstrap": "^3.3.7",
+    "core-js": "^2.4.1",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.1",
+    "morgan": "^1.8.0",
+    "reflect": "^0.1.3",
+    "reflect-metadata": "^0.1.9",
+    "rxjs": "^5.0.3",
+    "systemjs": "^0.20.5",
+    "zone": "^0.3.4",
+    "zone.js": "^0.7.6"
+  },
+  "devDependencies": {
+    "concurrently": "^3.1.0",
+    "nodemon": "^1.11.0",
+    "reload": "^1.1.1",
+    "typescript": "^2.1.5"
+  }
+}
