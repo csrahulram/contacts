@@ -4,9 +4,10 @@
   "description": "Angular quick start",
   "main": "app.js",
   "scripts": {
-    "start":"node app.js",
-    "js-dev":"nodemon app.js",
-    "ng-dev": "concurrently \"nodemon app.js\" \"tsc -w\"",
+    "start": "node app.js",
+    "js": "nodemon app.js",
+    "$": "nodemon app.js",
+    "ng": "concurrently \"nodemon app.js\" \"tsc -w\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -25,6 +26,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "express": "^4.14.1",
+    "jquery": "^3.2.1",
     "mongoose": "^4.8.1",
     "morgan": "^1.8.0",
     "reflect": "^0.1.3",
