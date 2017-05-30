@@ -5,7 +5,11 @@ Simple contacts application on pure javascript, jquery, angular2, react. This is
 # Commands
 
 $ npm i             //To install all the dependencies and dev dependencies after cloning
+
 $ npm start         //To run application and launch http://localhost:8080 to view the app
+
 $ npm run js        //To run application in javascript development mode
+
 $ npm run $         //To run application in jquery development mode
+
 $ npm run ng        //To run application in angular development mode
