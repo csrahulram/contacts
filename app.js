@@ -28,6 +28,10 @@ app.get('/js', (req, res) => {
     res.sendFile(__dirname + '/js/index.html');
 });
 
+app.get('/$', (req, res) => {
+    res.sendFile(__dirname + '/$/index.html');
+});
+
 app.get('/ng', (req, res) => {
     res.sendFile(__dirname + '/ng/dist/index.html');
 });
