@@ -29,24 +29,24 @@
 }
 
 .header {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	height: 50px;
 	background-color: #529aff;
 }
 
 .content {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	top: 50px;
 	bottom: 30px;
 	background-color: #f9fcff;
 	overflow-y: auto;
-	overflow-x: none;
+	overflow-x: hidden;
 }
 
 .footer {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	height: 30px;
 	bottom: 0;

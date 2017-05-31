@@ -8,8 +8,10 @@ import { ContactComponent } from '../contact/contact.component.js'
         <div class="header"></div>
         <div class="content" id="contact_view">
            <contact *ngFor="let contact of contacts" [contact]="contact"></contact>
+
          </div>
         <div class="footer">Total <span id="count"></span> contact(s)</div>
+		
     `,
 	styles: [`
     

@@ -101,6 +101,7 @@
 			var ele = {};
 			ele.name = $('modal_name').value;
 			ele.number = $('modal_number').value;
+			ele.gender = 'male';
 			ele.id = currentEdit.id;
 			ajax('api/update', ele, function (data) {
 				closeModal(e.detail);
@@ -125,39 +126,37 @@
 
 	function render(model) {
 		$('contact_view').innerHTML = '';
+
 		model.forEach(function (element) {
-			var item = `
-			 <div class="delete-btn btn icon" onclick="document.dispatchEvent(new CustomEvent('delete'), {'detail': this})"></div>
-			 <div class="edit-btn btn icon" onclick="document.dispatchEvent(new CustomEvent('edit'), {'detail': this})"></div>
-                <div class="profile-icon male noclick"></div>
-                <div class="details noclick">
-                    <p class="name">`+ element.name + `</p>
-                    <p class="number">`+ element.number + `</p>
-                </div>
-				<div class="id hide">`+ element.id + `</div>`;
+			var item =
+				'<div class="delete-btn btn icon"></div>' +
+				'<div class="edit-btn btn icon"></div>' +
+				'<div class="profile-icon male noclick"></div>' +
+				'<div class="details noclick">' +
+				'<p class="name">' + element.name + '</p>' +
+				'<p class="number">' + element.number + '</p>' +
+				'</div>' +
+				'<div class="id hide">' + element.id + '</div>';
 
 			var ele = document.createElement('div');
 
-			ele.classList = 'item-wrapper btn';
+			ele.classList.add('item-wrapper', 'btn');
 
 			ele.innerHTML = item;
 
-			ele.getElementsByClassName('delete-btn')[0].onclick = function () {
+			ele.getElementsByClassName('delete-btn')[0].addEventListener('click', function () {
 				document.dispatchEvent(new CustomEvent('delete', { 'detail': ele }));
-			}
+			});
 
-			ele.getElementsByClassName('edit-btn')[0].onclick = function () {
+			ele.getElementsByClassName('edit-btn')[0].addEventListener('click', function () {
 				document.dispatchEvent(new CustomEvent('edit', { 'detail': ele }));
-			}
-
+			});
+			
 			$('contact_view').appendChild(ele);
-
-
-		}, this);
+		});
 
 		$('count').innerHTML = model.length;
 	}
-
 	ajax('api/read', {}, function (data) {
 		render(data);
 	});
