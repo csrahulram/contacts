@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component.js';
 import { BaseComponent } from './base/base.component.js';
-import { ProductComponent } from './product/product.component.js';
+import { ConfirmComponent } from './confirm/confirm.component.js';
 import { ContactComponent } from './contact/contact.component.js';
 import { HttpModule, JsonpModule } from '@angular/http';
 
@@ -22,7 +22,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
     declarations: [
         AppComponent,
         BaseComponent,
-        ProductComponent,
+        ConfirmComponent,
         ContactComponent],
     bootstrap: [AppComponent]
 })

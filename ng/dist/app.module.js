@@ -11,7 +11,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
 var app_component_js_1 = require("./app.component.js");
 var base_component_js_1 = require("./base/base.component.js");
-var product_component_js_1 = require("./product/product.component.js");
+var confirm_component_js_1 = require("./confirm/confirm.component.js");
 var contact_component_js_1 = require("./contact/contact.component.js");
 var http_1 = require("@angular/http");
 var AppModule = (function () {
@@ -35,7 +35,7 @@ AppModule = __decorate([
         declarations: [
             app_component_js_1.AppComponent,
             base_component_js_1.BaseComponent,
-            product_component_js_1.ProductComponent,
+            confirm_component_js_1.ConfirmComponent,
             contact_component_js_1.ContactComponent
         ],
         bootstrap: [app_component_js_1.AppComponent]

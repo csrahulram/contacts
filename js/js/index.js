@@ -140,7 +140,7 @@
 
 			var ele = document.createElement('div');
 
-			ele.classList.add('item-wrapper', 'btn');
+			ele.classList.add('item-wrapper');
 
 			ele.innerHTML = item;
 

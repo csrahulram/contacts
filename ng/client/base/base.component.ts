@@ -1,17 +1,25 @@
 import { Component } from '@angular/core';
 //import { Router } from '@angular/router';
-import { ContactComponent } from '../contact/contact.component.js'
+import { ContactComponent } from '../contact/contact.component.js';
+import { ConfirmComponent } from '../confirm/confirm.component.js';
 
 @Component({
 	selector: 'base',
 	template: `
-        <div class="header"></div>
+	
+        <div class="header">
+			<div class="icon icon-plus btn" id="add_btn"></div>
+            <div class="icon icon-search"></div>
+            <!--<div class="search-input"><input type="text" class="search-text" id="search_input" placeholder="Type here to search" oninput="document.dispatchEvent(new Event('search'))"></div>-->
+            <div class="icon icon-menu btn"></div>
+		</div>
         <div class="content" id="contact_view">
-           <contact *ngFor="let contact of contacts" [contact]="contact"></contact>
+           <contact *ngFor="let contact of contacts" [contact]="contact" (onEdit)="editContact($event)" (onDelete)="showConfirm($event)"></contact>
 
          </div>
-        <div class="footer">Total <span id="count"></span> contact(s)</div>
-		
+        <div class="footer">Total {{contacts.length}} contact(s)</div>
+		<div class="light-box" *ngIf="lightbox"></div>
+		<confirm (onConfirm)="deleteContact($event)" *ngIf="confirm"></confirm>
     `,
 	styles: [`
     
@@ -25,17 +33,18 @@ import { ContactComponent } from '../contact/contact.component.js'
 	left: 50%;
 	top: 50%;
 	font-family: calibri;
+	display: block;
 }
 
 .header {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	height: 50px;
 	background-color: #529aff;
 }
 
 .content {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	top: 50px;
 	bottom: 30px;
@@ -45,7 +54,7 @@ import { ContactComponent } from '../contact/contact.component.js'
 }
 
 .footer {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	height: 30px;
 	bottom: 0;
@@ -54,6 +63,34 @@ import { ContactComponent } from '../contact/contact.component.js'
 	padding-top: 7px;
 	box-sizing: border-box;
 	padding-left: 10px;
+}
+
+.icon-plus {
+	background-image: url('ng/dist/img/add.png');
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.icon-search {
+	background-image: url('ng/dist/img/search.png');
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.icon-menu {
+	background-image: url('ng/dist/img/menu.png');
+	float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.light-box {
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	position: absolute;
 }
 
 @media only screen and (min-width: 500px) {
@@ -76,6 +113,10 @@ import { ContactComponent } from '../contact/contact.component.js'
 
 export class BaseComponent {
 	contacts: Array<object> = new Array();
+	deleteContactObj: any;
+	lightbox: boolean = false;
+	confirm: boolean = false;
+
 	constructor() {
 		this.contacts = [
 			{
@@ -104,8 +145,30 @@ export class BaseComponent {
 			{
 				"name": "Vikram",
 				"number": "46448765",
-				"id": 4
+				"id": 6
 			}
 		]
+	}
+
+	editContact(evt: object) {
+		console.log(evt);
+	}
+
+	showConfirm(evt: any) {
+		this.confirm = true;
+		this.lightbox = true;
+		this.deleteContactObj = evt;
+	}
+
+	deleteContact(evt: string) {
+		if (evt == 'ok') {
+			this.contacts.forEach((ele: any, ind: number) => {
+				if (ele.id == this.deleteContactObj.id) {
+					this.contacts.splice(ind, 1);
+				}
+			});
+		}
+		this.confirm = false;
+		this.lightbox = false;
 	}
 }

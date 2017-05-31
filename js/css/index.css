@@ -160,10 +160,10 @@
 	border-radius: 3px;
 }
 
-.item-wrapper:hover {
+/*.item-wrapper:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 	border-bottom: none;
-}
+}*/
 
 .details {
 	float: left;

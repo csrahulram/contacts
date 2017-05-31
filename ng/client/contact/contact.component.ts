@@ -1,10 +1,10 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector:'contact',
     template:`
-    <div class="delete-btn btn icon"></div>
-			 <div class="edit-btn btn icon"></div>
+    		<div class="delete-btn btn icon" (click)="deleteContact()"></div>
+			 <div class="edit-btn btn icon" (click)="editContact()"></div>
                 <div class="profile-icon male noclick"></div>
                 <div class="details noclick">
                     <p class="name">{{contact.name}}</p>
@@ -35,12 +35,6 @@ import {Component, OnInit, Input} from '@angular/core';
 
 .edit-btn:hover{
 	background-color: rgba(0, 0, 0, 0.2);
-}
-
-.icon {
-	width: 30px;
-	height: 30px;
-	background-size: cover;
 }
 
 :host {
@@ -81,7 +75,22 @@ import {Component, OnInit, Input} from '@angular/core';
 export class ContactComponent implements OnInit{
 	@Input() contact:object;
 
-    ngOnInit(){
+	@Output() onEdit = new EventEmitter<object>();
+	@Output() onDelete = new EventEmitter<object>();
 
+	constructor(){
+		//console.log('Constructor calling');
+	}
+
+	editContact(){
+		this.onEdit.emit(this.contact);
+	}
+
+	deleteContact(){
+		this.onDelete.emit(this.contact);
+	}
+
+    ngOnInit(){
+		//console.log('OnInit calling');
     }
 }
