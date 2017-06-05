@@ -5,6 +5,7 @@ import { AppComponent } from './app.component.js';
 import { BaseComponent } from './base/base.component.js';
 import { ConfirmComponent } from './confirm/confirm.component.js';
 import { ContactComponent } from './contact/contact.component.js';
+import { AddComponent } from './add/add.component.js';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
         AppComponent,
         BaseComponent,
         ConfirmComponent,
-        ContactComponent],
+        ContactComponent,
+        AddComponent],
     bootstrap: [AppComponent]
 })
 

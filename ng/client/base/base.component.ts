@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 //import { Router } from '@angular/router';
 import { ContactComponent } from '../contact/contact.component.js';
 import { ConfirmComponent } from '../confirm/confirm.component.js';
+import { AddComponent } from '../add/add.component.js';
 
 @Component({
 	selector: 'base',
@@ -20,6 +21,7 @@ import { ConfirmComponent } from '../confirm/confirm.component.js';
         <div class="footer">Total {{contacts.length}} contact(s)</div>
 		<div class="light-box" *ngIf="lightbox"></div>
 		<confirm (onConfirm)="deleteContact($event)" *ngIf="confirm"></confirm>
+		<add></add>
     `,
 	styles: [`
     
@@ -114,7 +116,7 @@ import { ConfirmComponent } from '../confirm/confirm.component.js';
 export class BaseComponent {
 	contacts: Array<object> = new Array();
 	deleteContactObj: any;
-	lightbox: boolean = false;
+	lightbox: boolean = true;
 	confirm: boolean = false;
 
 	constructor() {

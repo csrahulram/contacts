@@ -13,6 +13,7 @@ var app_component_js_1 = require("./app.component.js");
 var base_component_js_1 = require("./base/base.component.js");
 var confirm_component_js_1 = require("./confirm/confirm.component.js");
 var contact_component_js_1 = require("./contact/contact.component.js");
+var add_component_js_1 = require("./add/add.component.js");
 var http_1 = require("@angular/http");
 var AppModule = (function () {
     function AppModule() {
@@ -36,7 +37,8 @@ AppModule = __decorate([
             app_component_js_1.AppComponent,
             base_component_js_1.BaseComponent,
             confirm_component_js_1.ConfirmComponent,
-            contact_component_js_1.ContactComponent
+            contact_component_js_1.ContactComponent,
+            add_component_js_1.AddComponent
         ],
         bootstrap: [app_component_js_1.AppComponent]
     })
