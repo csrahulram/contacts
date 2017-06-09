@@ -1,4 +1,9 @@
-import {Component, Output, Input} from '@angular/core';
+import {Component, Output, Input, EventEmitter} from '@angular/core';
+
+
+const ADD_MODE:string = 'add_mode';
+const EDIT_MODE:string = 'edit_mode';
+
 
 @Component({
     'selector':'add',
@@ -13,7 +18,7 @@ import {Component, Output, Input} from '@angular/core';
                     <input type="text" maxlength=10 class="modal-text" id="modal_number" placeholder="Enter phone number">
                 </div>
                 <div class="button-wrapper">
-                    <div class="modal-ok-btn btn" tabindex="0" (click)="okFn()">{{okText}}</div>
+                    <div class="modal-ok-btn btn" [ngClass]=bgColor tabindex="0" (click)="okFn()">{{okText}}</div>
                     <div class="modal-cancel-btn btn" tabindex="1" (click)="cancelFn()">{{cancelText}}</div>
                 </div>
             </div>`,
@@ -26,6 +31,7 @@ import {Component, Output, Input} from '@angular/core';
 	transform: translateX(-50%) translateY(-50%);
 	top: 50%;
 	left: 50%;
+    display:none;
 }
 
 .profile-image {
@@ -47,7 +53,7 @@ import {Component, Output, Input} from '@angular/core';
 }
 
 .modal-details {
-        padding-left: 100px;
+    padding-left: 100px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -81,12 +87,19 @@ import {Component, Output, Input} from '@angular/core';
 .modal-ok-btn{
 	width: 130px;
     height: 50px;
-    background-color: #c12e2a;
     border-radius: 5px;
     color: white;
     font-size: 24px;
     text-align: center;
     float: left;
+}
+
+.bg-red{
+    background-color: #c12e2a;
+}
+
+.bg-yellow{
+    background-color: #eb9316;
 }
 
 .modal-cancel-btn{
@@ -129,8 +142,48 @@ import {Component, Output, Input} from '@angular/core';
     `]
 })
 
+
+
 export class AddComponent{
-    heading:string = 'Edit contacts'
-    okText:string = 'Update';
+
+    @Output() onSubmit = new EventEmitter<string>();
+
+
+    heading:string;
+    okText:string;
     cancelText:string = 'Cancel';
+    mode:string;
+    bgColor:string;
+
+    constructor(){
+        if(this.mode == ADD_MODE){
+            this.bgColor = 'bg-yellow';
+            this.heading = 'Add contact';
+            this.okText = 'Add';
+        }
+
+        if(this.mode == EDIT_MODE){
+            this.bgColor = 'bg-green';
+            this.heading = 'Edit contact';
+            this.okText = 'Update';
+        }
+        
+    }
+
+    close(){
+        this.onSubmit.emit('cancel');
+    }
+
+    okFn(){
+        this.onSubmit.emit(this.mode);
+    }
+
+    cancelFn(){
+        this.onSubmit.emit('cancel');
+    }
+
+    invoke(){
+        console.log('achieved');
+        
+    }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ViewContainerRef } from '@angular/core';
 //import { Router } from '@angular/router';
 import { ContactComponent } from '../contact/contact.component.js';
 import { ConfirmComponent } from '../confirm/confirm.component.js';
@@ -7,11 +7,10 @@ import { AddComponent } from '../add/add.component.js';
 @Component({
 	selector: 'base',
 	template: `
-	
         <div class="header">
-			<div class="icon icon-plus btn" id="add_btn"></div>
+			<div class="icon icon-plus btn" (click)="addContact()"></div>
             <div class="icon icon-search"></div>
-            <!--<div class="search-input"><input type="text" class="search-text" id="search_input" placeholder="Type here to search" oninput="document.dispatchEvent(new Event('search'))"></div>-->
+            <div class="search-input"><input type="text" class="search-text" id="search_input" placeholder="Type here to search" oninput="document.dispatchEvent(new Event('search'))"></div>
             <div class="icon icon-menu btn"></div>
 		</div>
         <div class="content" id="contact_view">
@@ -21,7 +20,7 @@ import { AddComponent } from '../add/add.component.js';
         <div class="footer">Total {{contacts.length}} contact(s)</div>
 		<div class="light-box" *ngIf="lightbox"></div>
 		<confirm (onConfirm)="deleteContact($event)" *ngIf="confirm"></confirm>
-		<add></add>
+		<add (onSubmit)="submitContact($event)" #add_component></add>
     `,
 	styles: [`
     
@@ -35,6 +34,7 @@ import { AddComponent } from '../add/add.component.js';
 	left: 50%;
 	top: 50%;
 	font-family: calibri;
+
 	display: block;
 }
 
@@ -95,6 +95,34 @@ import { AddComponent } from '../add/add.component.js';
 	position: absolute;
 }
 
+.search-text {
+	margin-top: 10px;
+	height: 30px;
+	width: 100%;
+	border-bottom: 0px solid white;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	background-color: transparent;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+}
+
+.search-input {
+	position: absolute;
+	left: 50px;
+	right: 48px;
+}
+
+.search-text:focus {
+	outline: none;
+}
+
+.search-text::placeholder {
+	color: rgba(255, 255, 255, 0.5);
+}
+
 @media only screen and (min-width: 500px) {
 	:host {
 		height: 80%;
@@ -113,11 +141,23 @@ import { AddComponent } from '../add/add.component.js';
 
 })
 
-export class BaseComponent {
+export class BaseComponent implements AfterViewInit {
+
 	contacts: Array<object> = new Array();
-	deleteContactObj: any;
-	lightbox: boolean = true;
+	contactObj: any;
+	
+	lightbox: boolean = false;
 	confirm: boolean = false;
+	add: boolean = false;
+
+	submitMode:string = 'add_mode';
+
+	@ViewChild('add_component')
+  	private addComponent: AddComponent;
+
+	ngAfterViewInit(){
+		
+	}
 
 	constructor() {
 		this.contacts = [
@@ -153,24 +193,54 @@ export class BaseComponent {
 	}
 
 	editContact(evt: object) {
-		console.log(evt);
+		this.add = true;
+		this.lightbox = true;
+		this.contactObj = evt;
+	}
+
+	addContact(){
+		this.add = true;
+		this.lightbox = true;
+		this.contactObj = {
+			
+		}
+		this.addComponent.invoke();
 	}
 
 	showConfirm(evt: any) {
 		this.confirm = true;
 		this.lightbox = true;
-		this.deleteContactObj = evt;
+		this.contactObj = evt;
 	}
 
 	deleteContact(evt: string) {
 		if (evt == 'ok') {
 			this.contacts.forEach((ele: any, ind: number) => {
-				if (ele.id == this.deleteContactObj.id) {
+				if (ele.id == this.contactObj.id) {
 					this.contacts.splice(ind, 1);
 				}
 			});
 		}
 		this.confirm = false;
+		this.lightbox = false;
+	}
+
+	submitContact(evt: string){
+		if (evt == 'edit') {
+			// this.contacts.forEach((ele: any, ind: number) => {
+			// 	if (ele.id == this.contactObj.id) {
+			// 		this.contacts.splice(ind, 1);
+			// 	}
+			// });
+			//Write edit code
+			this.submitMode = 'add_mode';
+		}
+
+		if(evt == 'add'){
+			this.submitMode = 'edit_mode';
+			//Write add code
+		}
+		this.add = false;
 		this.lightbox = false;
 	}
 }
