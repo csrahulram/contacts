@@ -31,7 +31,6 @@ const EDIT_MODE:string = 'edit_mode';
 	transform: translateX(-50%) translateY(-50%);
 	top: 50%;
 	left: 50%;
-    display:none;
 }
 
 .profile-image {
@@ -184,6 +183,6 @@ export class AddComponent{
 
     invoke(){
         console.log('achieved');
-        
+         
     }
 }

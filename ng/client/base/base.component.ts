@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 //import { Router } from '@angular/router';
 import { ContactComponent } from '../contact/contact.component.js';
 import { ConfirmComponent } from '../confirm/confirm.component.js';
@@ -20,7 +20,7 @@ import { AddComponent } from '../add/add.component.js';
         <div class="footer">Total {{contacts.length}} contact(s)</div>
 		<div class="light-box" *ngIf="lightbox"></div>
 		<confirm (onConfirm)="deleteContact($event)" *ngIf="confirm"></confirm>
-		<add (onSubmit)="submitContact($event)" #add_component></add>
+		<add (onSubmit)="submitContact($event)" #add_component *ngIf="add"></add>
     `,
 	styles: [`
     
@@ -156,7 +156,7 @@ export class BaseComponent implements AfterViewInit {
   	private addComponent: AddComponent;
 
 	ngAfterViewInit(){
-		
+		console.log('Why like this');
 	}
 
 	constructor() {
@@ -200,11 +200,13 @@ export class BaseComponent implements AfterViewInit {
 
 	addContact(){
 		this.add = true;
-		this.lightbox = true;
+		//this.lightbox = true;
 		this.contactObj = {
 			
 		}
-		this.addComponent.invoke();
+		setTimeout(()=>{
+			this.addComponent.invoke();
+		}, 100);
 	}
 
 	showConfirm(evt: any) {
@@ -240,7 +242,10 @@ export class BaseComponent implements AfterViewInit {
 			this.submitMode = 'edit_mode';
 			//Write add code
 		}
-		this.add = false;
-		this.lightbox = false;
+
+		console.log('comming');
+		
+		//this.add = false;
+		//this.lightbox = false;
 	}
 }
