@@ -13,3 +13,13 @@ $ npm run js        //To run application in javascript development mode
 $ npm run $         //To run application in jquery development mode
 
 $ npm run ng        //To run application in angular development mode
+
+
+# Complete step by step seed creation
+Git installation
+1. Download git for your OS and install
+
+Git initialization
+1. git init
+
+

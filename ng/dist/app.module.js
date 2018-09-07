@@ -15,33 +15,33 @@ var confirm_component_js_1 = require("./confirm/confirm.component.js");
 var contact_component_js_1 = require("./contact/contact.component.js");
 var add_component_js_1 = require("./add/add.component.js");
 var http_1 = require("@angular/http");
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, router_1.RouterModule.forRoot([
+                    {
+                        path: 'base',
+                        component: base_component_js_1.BaseComponent
+                    },
+                    {
+                        path: '**',
+                        component: base_component_js_1.BaseComponent
+                    }
+                ]), http_1.HttpModule,
+                http_1.JsonpModule],
+            declarations: [
+                app_component_js_1.AppComponent,
+                base_component_js_1.BaseComponent,
+                confirm_component_js_1.ConfirmComponent,
+                contact_component_js_1.ContactComponent,
+                add_component_js_1.AddComponent
+            ],
+            bootstrap: [app_component_js_1.AppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, router_1.RouterModule.forRoot([
-                {
-                    path: 'base',
-                    component: base_component_js_1.BaseComponent
-                },
-                {
-                    path: '**',
-                    component: base_component_js_1.BaseComponent
-                }
-            ]), http_1.HttpModule,
-            http_1.JsonpModule],
-        declarations: [
-            app_component_js_1.AppComponent,
-            base_component_js_1.BaseComponent,
-            confirm_component_js_1.ConfirmComponent,
-            contact_component_js_1.ContactComponent,
-            add_component_js_1.AddComponent
-        ],
-        bootstrap: [app_component_js_1.AppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map
