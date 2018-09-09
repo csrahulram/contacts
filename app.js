@@ -13,6 +13,14 @@ function getId(){
     return id++;
 }
 
+function startDatabase(){
+    setInterval(function (){
+        fs.writeFile('database.json', JSON.stringify(data), function(){
+            console.log('Data saved : ' + new Date().toUTCString());
+        });
+    }, 1000 * 60);
+}
+
 app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
 
@@ -33,10 +41,10 @@ app.get('/$', (req, res) => {
 });
 
 app.get('/ng', (req, res) => {
-    res.sendFile(__dirname + '/ng/dist/index.html');
+    res.sendFile(__dirname + '/ng/dist/contacts/index.html');
 });
 
-app.post('/api/read', (req, res) => {
+app.get('/api/read', (req, res) => {
     res.status(200).send(data);
 });
 
@@ -46,7 +54,6 @@ app.post('/api/delete', (req, res) => {
             data.splice(ind, 1);
         }
     });
-    fs.writeFileSync('database.json', JSON.stringify(data));
     res.status(200).send(data);
 });
 
@@ -57,14 +64,13 @@ app.post('/api/update', (req, res) => {
             ele.number = req.body.number;
         }
     });
-    fs.writeFileSync('database.json', JSON.stringify(data));
+    
     res.status(200).send(data);
 });
 
 app.post('/api/add', (req, res) => {
     req.body.id = getId();
     data.push(req.body);
-    fs.writeFileSync('database.json', JSON.stringify(data));
     res.status(200).send(data);
 });
 
@@ -86,6 +92,9 @@ var server = http.createServer(app);
 
 reload(server, app);
 
-server.listen(8080, 'localhost', () => {
+server.listen(8080, '192.168.0.103', () => {
     console.log('Server listerning 8080');
+    //startDatabase();
 });
+
+

@@ -1,60 +1,104 @@
-/*
- *  STYLE 4
- */
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}
+
+ .root{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1fc8db;
+    background-image: radial-gradient(#9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    /* color: #ffffff; */
+    /* opacity: 0.95; */
+ }
 
 .content::-webkit-scrollbar-track {
 	/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
-	background-color: #F5F5F5;
+	background-color: #9fb8ad;
 }
 
 .content::-webkit-scrollbar {
 	width: 10px;
-	background-color: #F5F5F5;
+	background-color: #9fb8ad;
 }
 
 .content::-webkit-scrollbar-thumb {
-	background-color: #529aff;
+	background-color: #1fc8db;
 	/*border: 2px solid #555555;*/
 }
 
 .wrapper {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	max-width: 480px;
-	transform: translateX(-50%) translateY(-50%);
-	left: 50%;
-	top: 50%;
-	font-family: calibri;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+    font-family: calibri;
+    border-radius: 15px;
+    
+}
+
+.hide{
+	display: none;
+}
+
+.slide-left{
+	left: -100% !important;
+	transition: 0.5s;
+}
+
+.slide-center{
+	left: 0 !important;
+	transition: 0.5s;
+}
+
+.slide-right{
+	left: 100% !important;
+	transition: 0.5s;
+}
+
+.delay-hide{
+	transition-delay: 0.5s;
+	transition: 0.5s;
+	visibility: hidden;
 }
 
 .header {
 	position: absolute;
-	width: 100%;
-	height: 50px;
-	background-color: #529aff;
+    width: 100%;
+    height: 70px;
+    background-color: #30b1cf;
+    background-image: linear-gradient(141deg, #21a1c5 0%, #3fc1d9 100%);
 }
 
 .content {
 	position: absolute;
-	width: 100%;
-	top: 50px;
-	bottom: 30px;
-	background-color: #f9fcff;
-	overflow-y: auto;
-	overflow-x: hidden;
+    width: 100%;
+    top: 70px;
+    bottom: 30px;
+    background-color: #f9fcff;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .footer {
 	position: absolute;
-	width: 100%;
-	height: 30px;
-	bottom: 0;
-	background-color: #529aff;
+    width: 100%;
+    height: 30px;
+    bottom: 0;
+    background-color: #30b1cf;
 	color: white;
-	padding-top: 7px;
-	box-sizing: border-box;
-	padding-left: 10px;
+	
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .icon {
@@ -63,15 +107,15 @@
 	background-size: cover;
 }
 
-.profile-icon {
-	background-image: url('../img/profile.png');
-	width: 60px;
-	height: 60px;
-	background-size: cover;
-	border-radius: 50%;
-	background-repeat: no-repeat;
-	background-position: 50%;
-	float: left;
+.add-btn{
+	margin: 20px;
+	right: 0;
+    position: absolute;
+}
+
+.home-btn{
+	margin: 20px;
+    position: absolute;
 }
 
 .delete-btn{
@@ -100,37 +144,127 @@
 
 .icon-plus {
 	background-image: url('../img/add.png');
-	float: right;
-	margin-top: 10px;
-	margin-right: 10px;
+}
+
+.icon-back{
+	background-image: url('../img/back.png');
 }
 
 .icon-search {
 	background-image: url('../img/search.png');
-	float: right;
 	margin-top: 10px;
 	margin-right: 10px;
 }
 
-.icon-menu {
-	background-image: url('../img/menu.png');
-	float: left;
-	margin-top: 10px;
-	margin-left: 10px;
+.fade-out{
+	opacity: 0;
+	transition: 1s;
 }
 
-.search-text {
-	margin-top: 10px;
-	height: 30px;
-	width: 100%;
-	border-bottom: 0px solid white;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	background-color: transparent;
-	color: white;
-	font-size: 20px;
-	text-align: center;
+.fade-in{
+	opacity: 1;
+	transition: 1s;
+}
+
+.fullscreen-btn{
+	position: absolute;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    top: 3px;
+}
+
+.icon-home {
+	background-image: url('../img/home.png');
+}
+
+.icon-fullscreen {
+	background-image: url('../img/fullscreen.png');
+}
+
+.back-btn{
+	position: absolute;
+	left: 0;
+}
+
+.head-container{
+	position: absolute;
+    margin-top: 20px;
+    left: 20px;
+    right: 20px;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.nav-txt{
+	position: absolute;
+    width: 100%;
+    margin-top: 8px;
+    color: white;
+    margin-left: 5px;
+}
+
+.txt{
+	outline: none;
+}
+
+.search-txt {
+    height: 30px;
+    width: 100%;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: rgba(48,48,48, 0.29);
+    color: #ffffff;
+    font-size: 16px;
+    padding-left: 20px;
+    padding-right: 12px;
+    border-radius: 15px;
+}
+
+.search-txt::placeholder{
+	color: rgba(225, 225, 225, 0.87);
+}
+
+.search-txt::-ms-placeholder{
+	color: rgba(225, 225, 225, 0.87);
+}
+
+.detail-txt{
+	width: calc(100% - 25px);
+    /* margin: 20px; */
+    height: 40px;
+    font-size: 23px;
+    padding-left: 20px;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+}
+
+.contact-detail{
+	padding: 0 50px 0 50px;
+}
+
+.txt{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.title-txt{
+	position: absolute;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+    color: white;
+}
+
+.count-txt{
+	position: absolute;
+    /* margin-top: 6px; */
+    margin-left: 15px;
+    line-height: 30px;
 }
 
 .search-input {
@@ -147,11 +281,27 @@
 	color: rgba(255, 255, 255, 0.5);
 }
 
-.btn {
+.button {
 	cursor: pointer;
 }
 
-.item-wrapper {
+.contacts-container{
+    position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 0;
+    width:100%;
+}
+
+.details-container{
+    position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 100%;
+    width:100%;
+}
+
+.contact {
 	height: 80px;
 	border-bottom: 0.2px solid rgba(0, 0, 0, 0.4);
 	padding-top: 10px;
@@ -160,27 +310,31 @@
 	border-radius: 3px;
 }
 
-/*.item-wrapper:hover {
+.contact-item{
+	display: flex;
+	padding: 10px;
+	border-bottom: 1px solid #ededed;
+}
+
+.contact-item:hover {
 	background-color: rgba(0, 0, 0, 0.1);
-	border-bottom: none;
-}*/
+}
 
 .details {
-	float: left;
-	/* background-color: lightgoldenrodyellow; */
-	margin-top: 6px;
-	margin-left: 20px;
+	margin-top: 5px;
+    margin-left: 20px;
 }
 
 .name {
-	font-size: 26px;
-	line-height: 30px;
+	font-size: 20px;
+    line-height: 30px;
+    color: #74adb1;
 }
 
-.number {
-	font-size: 15px;
-	line-height: 15px;
-	color: rgba(0, 0, 0, 0.68);
+.phone {
+	line-height: 30px;
+    font-size: 25px;
+    color: #8c8c8c;
 }
 
 .noclick {
@@ -239,106 +393,191 @@
 	font-size: 18px;
 }
 
-.profile-image {
-	background-image: url(../img/profile.png);
-    width: 80px;
-    height: 80px;
-    background-size: cover;
+.profile {
+	display: block;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    float: left;
+    border: none;
+    object-fit: cover;
+    object-position: top;
 }
 
-.modal-details {
-        padding-left: 100px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.modal-text-container {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.modal-text {
-	margin-top: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    background-color: transparent;
-    color: black;
-    font-size: 16px;
-	line-height: 23px;
-	width: 100%;
-}
-
-.modal-text::placeholder {
-	color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-text:focus {
-	outline: none;
+.profile-pic{
+	width: 120px;
+    height: 120px;
+    background-color: #eaeaea;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    margin-top: 35px;
+    margin-bottom: 20px;
 }
 
 .button-wrapper{
     margin-top: 50px;
 }
 
-.modal-add-btn{
-	width: 130px;
-    height: 50px;
-    background-color: #5cb85c;
-    border-radius: 5px;
-    color: white;
-    font-size: 24px;
+.action-btn{
+	width: 150px;
+    font-size: 26px;
+    box-sizing: border-box;
     line-height: 50px;
     text-align: center;
-    float: left;
+    border-radius: 10px;
+    margin: 10px;
+	color: white;
+	transition: 0.5s;
+}
+
+.action-container{
+	display: flex;
+    margin-top: 50px;
+    justify-content: space-between;
+}
+
+.primary{
+	background-color: #337ab7;
+}
+
+.success{
+	background-color: #5cb85c;
+}
+
+.danger{
+	background-color: #d9534f;
+}
+
+.warning{
+	background-color: #f0ad4e;
+}
+
+.action-btn:hover{
+	opacity: 0.8;
+	transition: 0.5s;
 }
 
 
-.modal-edit-btn{
-	width: 130px;
-    height: 50px;
-    background-color: #eb9316;
-    border-radius: 5px;
-    color: white;
-    font-size: 24px;
-    line-height: 50px;
+/* Customize the label (the container) */
+.radio-container {
+	display: block;
+    position: relative;
+    /* padding-left: 0px; */
+    /* margin-bottom: 12px; */
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .radio-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+	position: absolute;
+    top: 0;
+    left: 7px;
+    height: 65px;
+    width: 65px;
+    background-color: #eee;
+    background-position: center;
+    background-size: 50px;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+  }
+
+  .icon-male{
+	background-image: url(../img/male.png);
+  }
+
+  .icon-female{
+	background-image: url(../img/female.png);
+  }
+.icon-other{
+	background-image: url(../img/other.png);
+}
+  
+  
+  /* On mouse-over, add a grey background color */
+  .radio-container:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .radio-container input:checked ~ .icon-female {
+	background-color: rgba(255, 23, 68, 0.25);
+  }
+
+  .radio-container input:checked ~ .icon-male {
+	background-color: rgba(33, 150, 240, 0.25);
+  }
+  
+  .radio-container input:checked ~ .icon-other {
+	background-color: rgba(136, 39, 176, 0.25);
+  }
+  
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .radio-container input:checked ~ .checkmark:after {
+	display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .radio-container .checkmark:after {
+	left: 9px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
+
+  .radio-container .icon-male.checkmark:after{
+	border-color: #2196f0;
+  }
+
+  .radio-container .icon-female.checkmark:after{
+	border-color: #ff1744;
+  }
+
+  .radio-container .icon-other.checkmark:after{
+	border-color: #8827b0;
+  }
+
+  .radio-container p{
+    margin-top: 70px;
     text-align: center;
-    float: left;
-}
+    font-size: 16px;
+  }
 
-.modal-delete-btn{
-	width: 130px;
-    height: 50px;
-    background-color: #c12e2a;
-    border-radius: 5px;
-    color: white;
-    font-size: 24px;
-    line-height: 50px;
-    text-align: center;
-    float: left;
-}
-
-.modal-cancel-btn{
-	width: 130px;
-    height: 50px;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    color: black;
-    font-size: 24px;
-    line-height: 50px;
-    text-align: center;
-    float: right;
-}
-
-.modal-info{
-	    font-size: 24px;
-	text-align: center;
-}
+  .gender-container{
+	display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 
 
 .disable{
@@ -346,19 +585,40 @@
 	pointer-events: none;
 }
 
-@media only screen and (min-width: 500px) {
+/* Extra small devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
 	.wrapper {
-		height: 80%;
+		width: 100%;
+		height: calc(100% - 100px);
+		max-width: 480px;
+		transform: translateX(-50%);
+		left: 50%;
+		top: 50px;
+		-webkit-box-shadow: 0px 5px 20px 7px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 5px 20px 7px rgba(0, 0, 0, 0.35);
+	box-shadow: 0px 5px 20px 7px rgba(0,0,0,0.35);
 	}
 	.header {
-		border-top-left-radius: 3px;
-		border-top-right-radius: 3px;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
 	}
 	.footer {
-		border-bottom-left-radius: 3px;
-		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 15px;
+		border-bottom-right-radius: 15px;
 	}
-}
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {  }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }
 
 @media only screen and (max-width: 430px){
 	.modal-add-btn{

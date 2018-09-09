@@ -1,163 +1,234 @@
 'use strict';
 (function () {
-	var search_modal = [];
 
-	var currentEdit = {};
-
+	// Micro library to mimik the jquery functionality. This is not actual jquery.
 	function $(id) {
-		return document.getElementById(id);
+		let ele;
+		if (id[0] == '#') {
+			ele = document.getElementById(id.substr(1));
+		} else {
+			ele = document.getElementsByClassName(id.substr(1));
+		}
+		return ele;
 	}
 
-	function ajax(url, data, cb) {
+	let root = $('.root')[0];
+	let fullScreen = false;
+
+	/* View in fullscreen */
+	function openFullscreen() {
+		if (root.requestFullscreen) {
+			root.requestFullscreen();
+		} else if (root.mozRequestFullScreen) { /* Firefox */
+			root.mozRequestFullScreen();
+		} else if (root.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+			root.webkitRequestFullscreen();
+		} else if (root.msRequestFullscreen) { /* IE/Edge */
+			root.msRequestFullscreen();
+		}
+	}
+	/* Close fullscreen */
+	function closeFullscreen() {
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.mozCancelFullScreen) { /* Firefox */
+			document.mozCancelFullScreen();
+		} else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+			document.webkitExitFullscreen();
+		} else if (document.msExitFullscreen) { /* IE/Edge */
+			document.msExitFullscreen();
+		}
+	}
+
+	function ajax(method, url, data, cb) {
 		var http = new XMLHttpRequest();
 		var params = data;
-		http.open("POST", 'http://localhost:8080/' + url, true);
-
-		//Send the proper header information along with the request
+		http.open(method, '/api/' + url, true);
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-
-		http.onreadystatechange = function () {//Call a function when the state changes.
+		http.onreadystatechange = function () {
 			if (http.readyState == 4 && http.status == 200) {
 				cb(JSON.parse(http.responseText));
 			}
 		}
 		http.send(JSON.stringify(params));
 	}
+	// Micro library ends
 
-	$('add_btn').addEventListener('click', function (e) {
-		$('modal_name').value = '';
-		$('modal_number').value = '';
-		var updateBtn = document.getElementsByClassName('modal-add-btn')[0];
-		updateBtn.innerHTML = 'Add';
-		updateBtn.style.backgroundColor = '#5cb85c';
-		openModal('add_modal');
+	let currentItem = {};
+	let mode = '';
+	let genderRad = document.getElementsByName('gender');
+	let contactsContainer = $('.contacts-container')[0];
+	let detailsContainer = $('.details-container')[0];
+	let searchBar = $('#search_bar');
+	let navBar = $('#nav_bar');
+	let addBtn = $('#add_btn');
+	let homeBtn = $('#home_btn');
+	let backBtn = $('#back_btn');
+	let fullscreenBtn = $('#fullscreen_btn');
+	let nameTxt = $('#name_txt');
+	let phoneTxt = $('#phone_txt');
+	let countTxt = $('#count_txt');
+	let navTxt = $('#nav_txt');
+	let profilePic = $('#profile_pic');
+	let addAction = $('#add_action');
+	let editAction = $('#edit_action');
+	let deleteBtn = $('#delete_btn');
+
+
+	addBtn.addEventListener('click', function () {
+		mode = 'add';
+		navTxt.innerHTML = 'Create new contact'
+		currentItem = {};
+		showDetails();
 	});
 
-	function openModal(id) {
-		$('lightbox').classList.remove('hide');
-		$(id).classList.remove('hide');
-		if (id == 'add_modal') {
-			$('modal_name').addEventListener('keyup', enableBtn);
-			$('modal_number').addEventListener('keyup', enableBtn);
-			document.addEventListener('keyup', enterFn);
-		}
+	deleteBtn.addEventListener('click', function(){
+		confirm('This contact will be deleted.');
+	})
 
-		function enableBtn(e) {
-			if ($('modal_name').value != '' && $('modal_number').value != '') {
-				document.getElementsByClassName('modal-add-btn')[0].classList.remove('disable');
-			} else {
-				document.getElementsByClassName('modal-add-btn')[0].classList.add('disable');
-			}
-		}
-
-		function enterFn(e) {
-			if (e.keyCode == 13) {
-				if ($('modal_name').value != '' && $('modal_number').value != '') {
-					document.dispatchEvent(new CustomEvent('add', { 'detail': 'add_modal' }));
-					document.removeEventListener('keyup', enterFn);
-				}
-			}
-		}
-	}
-
-	function closeModal(id) {
-		$('lightbox').classList.add('hide');
-		$(id).classList.add('hide');
-		var addBtn = document.getElementsByClassName('modal-add-btn')[0];
-		addBtn.classList.add('disable');
-	}
-
-	document.addEventListener('close', function (e) {
-		closeModal(e.detail);
-	});
-
-	document.addEventListener('edit', function (e) {
-		currentEdit.id = parseInt(e.detail.getElementsByClassName('id')[0].innerHTML);
-
-		$('modal_name').value = e.detail.getElementsByClassName('name')[0].innerHTML;
-		$('modal_number').value = e.detail.getElementsByClassName('number')[0].innerHTML;
-
-		var updateBtn = document.getElementsByClassName('modal-add-btn')[0];
-		updateBtn.innerHTML = 'Update';
-		updateBtn.style.backgroundColor = '#eb9316';
-		openModal('add_modal');
-	});
-
-	document.addEventListener('delete', function (e) {
-		if (e.detail == 'confirm_modal') {
-			ajax('api/delete', { 'id': currentEdit.id }, function (data) {
-				render(data);
-				closeModal('confirm_modal');
-			});
+	fullscreenBtn.addEventListener('click', function () {
+		if(!fullScreen){
+			fullScreen = true;
+			openFullscreen();
 		} else {
-			currentEdit.id = parseInt(e.detail.getElementsByClassName('id')[0].innerHTML);
-			openModal('confirm_modal');
+			fullScreen = false;
+			closeFullscreen();
 		}
+			
+	});
+
+	backBtn.addEventListener('click', function () {
+		hideDetails();
+	});
+
+	document.addEventListener('view_contact', function (e) {
+		currentItem = e.detail;
+		navTxt.innerHTML = currentItem.name + '\'s contact details'
+		mode = 'edit';
+		showDetails();
 	})
 
 	document.addEventListener('add', function (e) {
-		var updateBtn = document.getElementsByClassName('modal-add-btn')[0];
-		if (updateBtn.innerHTML == 'Update') {
-			var ele = {};
-			ele.name = $('modal_name').value;
-			ele.number = $('modal_number').value;
-			ele.gender = 'male';
-			ele.id = currentEdit.id;
-			ajax('api/update', ele, function (data) {
-				closeModal(e.detail);
-				render(data);
-			});
-		} else if (updateBtn.innerHTML == 'Add') {
-			var ele = {};
-			ele.name = $('modal_name').value;
-			ele.number = $('modal_number').value;
-			ajax('api/add', ele, function (data) {
-				closeModal(e.detail);
-				render(data);
-			});
-		}
+
 	});
 
 	document.addEventListener('search', function (e) {
-		ajax('api/search', { 'query': $('search_input').value }, function (data) {
+		ajax('POST', 'search', { 'query': $('search_txt').value }, function (data) {
 			render(data);
 		});
 	});
 
+	function showDetails() {
+		nameTxt.value = '';
+		phoneTxt.value = '';
+		genderRad.forEach(function(ele){
+			ele.checked = false;
+		});
+		profilePic.src = 'img/dummy.png';
+		addAction.classList.remove('hide');
+		editAction.classList.add('hide');
+
+		if(mode == 'edit'){
+			if(currentItem.name){
+				nameTxt.value = currentItem.name;
+			}
+
+			if(currentItem.phone){
+				phoneTxt.value = currentItem.phone;
+			}
+
+			if(currentItem.gender){
+				switch(currentItem.gender){
+					case 'male':
+					genderRad[0].checked = true;
+					break;
+					case 'female':
+					genderRad[1].checked = true;
+					break;
+					case 'other':
+					genderRad[2].checked = true;
+					break;
+				}
+			}
+
+			if(currentItem.profile){
+				profilePic.src = 'img/' + currentItem.profile;
+			}
+
+			addAction.classList.add('hide');
+			editAction.classList.remove('hide');
+		}
+
+		contactsContainer.classList.add('slide-left');
+		contactsContainer.classList.remove('slide-center');
+
+		detailsContainer.classList.add('slide-center');
+		detailsContainer.classList.remove('slide-right');
+
+		searchBar.classList.add('fade-out');
+		searchBar.classList.remove('fade-in');
+
+		navBar.classList.add('fade-in');
+		navBar.classList.remove('fade-out');
+		navBar.classList.remove('delay-hide');
+
+		addBtn.classList.add('fade-out');
+		addBtn.classList.remove('fade-in');
+		addBtn.classList.add('delay-hide');
+
+		homeBtn.classList.add('fade-out');
+		homeBtn.classList.remove('fade-in');
+		homeBtn.classList.add('delay-hide');
+
+		
+	}
+
+	function hideDetails() {
+		contactsContainer.classList.remove('slide-left');
+		contactsContainer.classList.add('slide-center');
+
+		detailsContainer.classList.remove('slide-center');
+		detailsContainer.classList.add('slide-right');
+
+		searchBar.classList.add('fade-in');
+		searchBar.classList.remove('fade-out');
+
+		navBar.classList.add('fade-out');
+		navBar.classList.remove('fade-in');
+		navBar.classList.add('delay-hide');
+
+		addBtn.classList.remove('fade-out');
+		addBtn.classList.add('fade-in');
+		addBtn.classList.remove('delay-hide');
+
+		homeBtn.classList.remove('fade-out');
+		homeBtn.classList.add('fade-in');
+		homeBtn.classList.remove('delay-hide');
+	}
+
 	function render(model) {
-		$('contact_view').innerHTML = '';
+		contactsContainer.innerHTML = '';
+		model.forEach(function (ele) {
+			var item = '';
+			item += '<img class="profile" src="img/' + ele.profile + '" />';
+			item += '<div class="details">';
+			item += '<div class="name">' + ele.name + '</div>';
+			item += '<div class="phone">' + ele.phone + '</div>';
+			item += '</div>';
 
-		model.forEach(function (element) {
-			var item =
-				'<div class="delete-btn btn icon"></div>' +
-				'<div class="edit-btn btn icon"></div>' +
-				'<div class="profile-icon male noclick"></div>' +
-				'<div class="details noclick">' +
-				'<p class="name">' + element.name + '</p>' +
-				'<p class="number">' + element.number + '</p>' +
-				'</div>' +
-				'<div class="id hide">' + element.id + '</div>';
-
-			var ele = document.createElement('div');
-
-			ele.classList.add('item-wrapper');
-
-			ele.innerHTML = item;
-
-			ele.getElementsByClassName('delete-btn')[0].addEventListener('click', function () {
-				document.dispatchEvent(new CustomEvent('delete', { 'detail': ele }));
+			var contactItem = document.createElement('div');
+			contactItem.classList.add('contact-item', 'button');
+			contactItem.innerHTML = item;
+			contactItem.addEventListener('click', function () {
+				document.dispatchEvent(new CustomEvent('view_contact', { 'detail': ele }));
 			});
-
-			ele.getElementsByClassName('edit-btn')[0].addEventListener('click', function () {
-				document.dispatchEvent(new CustomEvent('edit', { 'detail': ele }));
-			});
-			
-			$('contact_view').appendChild(ele);
+			contactsContainer.appendChild(contactItem);
 		});
 
-		$('count').innerHTML = model.length;
+		countTxt.innerHTML = 'Total ' + model.length + ' contact' + (model.length <= 1 ? '' : 's');
 	}
-	ajax('api/read', {}, function (data) {
+
+	ajax('GET', 'read', {}, function (data) {
 		render(data);
 	});
 }());

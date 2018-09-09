@@ -1,25 +1,27 @@
-# Contacts
+# MyApp
 
-Simple contacts application on pure javascript, jquery, angular2, react. This is purely learning purpose for beginners. Server is writtern in express, where all the client code will run on common express server. This application can be connected with mongodb or mysql or mssql or json file. The configuration is provided to change the connection parameters.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
-# Commands
+## Development server
 
-$ npm i             //To install all the dependencies and dev dependencies after cloning
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-$ npm start         //To run application and launch http://localhost:8080 to view the app
+## Code scaffolding
 
-$ npm run js        //To run application in javascript development mode
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-$ npm run $         //To run application in jquery development mode
+## Build
 
-$ npm run ng        //To run application in angular development mode
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Running unit tests
 
-# Complete step by step seed creation
-Git installation
-1. Download git for your OS and install
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-Git initialization
-1. git init
+## Running end-to-end tests
 
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
