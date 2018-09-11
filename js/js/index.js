@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-	// Micro library to mimik the jquery functionality. This is not actual jquery.
+	/* Micro library to mimik the jquery functionality. This is not actual jquery. */
 	function $(id) {
 		let ele;
 		if (id[0] == '#') {
@@ -12,8 +12,8 @@
 		return ele;
 	}
 
-	let root = $('.root')[0];
-	let fullScreen = false;
+
+	
 
 	/* View in fullscreen */
 	function openFullscreen() {
@@ -52,11 +52,16 @@
 		}
 		http.send(JSON.stringify(params));
 	}
+	
 	// Micro library ends
 
+	// Complete local variables
+	let root = $('.root')[0];
+	let fullScreen = false;
 	let currentItem = {};
 	let mode = '';
 	let genderRad = document.getElementsByName('gender');
+	let genderCon = $('.gender-container')[0];
 	let contactsContainer = $('.contacts-container')[0];
 	let detailsContainer = $('.details-container')[0];
 	let searchBar = $('#search_bar');
@@ -70,46 +75,226 @@
 	let countTxt = $('#count_txt');
 	let navTxt = $('#nav_txt');
 	let profilePic = $('#profile_pic');
-	let addAction = $('#add_action');
+	let createAction = $('#create_action');
 	let editAction = $('#edit_action');
 	let deleteBtn = $('#delete_btn');
+	let updateBtn = $('#update_btn');
+	let createBtn = $('#create_btn');
+	let fileInp = $('#file');
+	let searchTxt = $('#search_txt');
+	let confirmYes = $('#confirm_yes');
+	let confirmNo = $('#confirm_no');
+	let alertOk = $('#alert_ok');
+	let confirmClose = $('#confirm_close');
+	let alertClose = $('#alert_close');
+	let confirmModal = $('#confirm_modal');
+	let alertModal = $('#alert_modal');
+	let lightbox = $('#lightbox');
+	let confirmTxt = $('#confirm_txt');
+	let alertTxt = $('#alert_txt');
+	// Local variable ends
+	
+	/* Primary window functions*/
+	function confirm(msg, yes, no){
+		confirmTxt.innerHTML = msg;
+		lightbox.classList.remove('fade-out');
+		lightbox.classList.add('fade-in');
+		lightbox.classList.remove('delay-hide');
+		confirmModal.classList.add('fade-in');
+		confirmModal.classList.remove('delay-hide');
+		confirmYes.onclick = yes;
+		confirmNo.onclick = no;
+	}
+
+	function closeConfirm(){
+		lightbox.classList.remove('fade-in');
+		lightbox.classList.add('fade-out');
+		lightbox.classList.add('delay-hide');
+		confirmModal.classList.remove('fade-in');
+		confirmModal.classList.add('delay-hide');
+		confirmYes.onclick = null;
+		confirmNo.onclick = null;
+	}
+
+	function alert(msg, ok){
+		alertTxt.innerHTML = msg;
+		lightbox.classList.remove('fade-out');
+		lightbox.classList.add('fade-in');
+		lightbox.classList.remove('delay-hide');
+		alertModal.classList.add('fade-in');
+		alertModal.classList.remove('delay-hide');
+		alertOk.onclick = ok;
+	}
+
+	function closeAlert(){
+		lightbox.classList.remove('fade-in');
+		lightbox.classList.add('fade-out');
+		lightbox.classList.add('delay-hide');
+		alertModal.classList.remove('fade-in');
+		alertModal.classList.add('delay-hide');
+		alertOk.onclick = null;
+	}
+
+	for (var i = 0; i < genderRad.length; i++) {
+		genderRad[i].addEventListener('change', function(){
+			currentItem.gender = this.value;
+		})
+	}
+
+	confirmClose.onclick = function(){
+		closeConfirm();
+	}
+
+	alertClose.onclick = function(){
+		closeAlert();
+	}
+
+	searchTxt.onkeyup =  function(){
+		ajax('POST', 'search', {'query' : this.value}, function(data){
+			render(data);
+		})
+	};
 
 
-	addBtn.addEventListener('click', function () {
+	addBtn.onclick = function () {
 		mode = 'add';
-		navTxt.innerHTML = 'Create new contact'
+		navTxt.innerHTML = 'Create new contact';
 		currentItem = {};
 		showDetails();
-	});
+		
+	};
 
-	deleteBtn.addEventListener('click', function(){
-		confirm('This contact will be deleted.');
-	})
+	deleteBtn.onclick = function(){
+		confirm('This contact will be deleted.', function(){
+			ajax('DELETE', 'delete', currentItem, function(data){
+				render(data);
+				hideDetails();
+				closeConfirm();
+			});
+		}, function(){
+			closeConfirm();
+		});
+	};
 
-	fullscreenBtn.addEventListener('click', function () {
+	
+
+	fileInp.onchange = function(){
+		let formData = new FormData();
+		let xhr = new XMLHttpRequest();
+		formData.append("profile", this.files[0]);
+		xhr.open('post', '/api/upload', true);
+		
+		currentItem.profile = this.files[0].name;
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				profilePic.src = '../profiles/' + currentItem.profile;
+			}
+		};
+
+		xhr.send(formData);
+	};
+
+	nameTxt.onkeyup = function(){
+		currentItem.name = this.value;
+	};
+
+	phoneTxt.onkeyup = function(){
+		currentItem.phone = this.value;
+	};
+
+	createBtn.onclick = function(){
+		if(!currentItem.name){
+			alert('Contact name is mandatory.', function(){
+				nameTxt.classList.add('shake');
+				closeAlert();
+				setTimeout(function(){nameTxt.classList.remove('shake');}, 1500);
+			});
+			return;
+		}
+
+		if(!currentItem.phone){
+			alert('Contact number is mandatory.', function(){
+				phoneTxt.classList.add('shake');
+				closeAlert();
+				setTimeout(function(){phoneTxt.classList.remove('shake');}, 1500);
+			});
+			return;
+		}
+
+		if(!currentItem.gender){
+			alert('Gender is mandatory.', function(){
+				genderCon.classList.add('shake');
+				closeAlert();
+				setTimeout(function(){genderCon.classList.remove('shake');}, 1500);
+			});
+			return;
+		}
+
+		createBtn.classList.add('disable');
+
+		ajax('PUT', 'add', currentItem, function(data){
+			render(data);
+			hideDetails();
+			createBtn.classList.remove('disable');
+		})
+	};
+
+	updateBtn.onclick = function(){
+		if(!currentItem.name){
+			alert('Contact name is mandatory.', function(){
+				nameTxt.classList.add('shake');
+				setTimeout(function(){nameTxt.classList.remove('shake');}, 1500);
+				closeAlert();
+			});
+			return;
+		}
+
+		if(!currentItem.phone){
+			alert('Contact number is mandatory.', function(){
+				phoneTxt.classList.add('shake');
+				setTimeout(function(){phoneTxt.classList.remove('shake');}, 1500);
+				closeAlert();
+			});
+			return;
+		}
+
+		if(!currentItem.gender){
+			alert('Gender is mandatory.', function(){
+				genderCon.classList.add('shake');
+				setTimeout(function(){genderCon.classList.remove('shake');}, 1500);
+				closeAlert();
+			});
+			return;
+		}
+
+		updateBtn.classList.add('disable');
+
+		ajax('PUT', 'update', currentItem, function(data){
+			render(data);
+			updateBtn.classList.remove('disable');
+			hideDetails();
+		})
+	};
+
+	fullscreenBtn.onclick = function () {
 		if(!fullScreen){
 			fullScreen = true;
 			openFullscreen();
 		} else {
 			fullScreen = false;
 			closeFullscreen();
-		}
-			
-	});
+		}		
+	};
 
-	backBtn.addEventListener('click', function () {
+	backBtn.onclick = function () {
 		hideDetails();
-	});
+	};
 
 	document.addEventListener('view_contact', function (e) {
 		currentItem = e.detail;
-		navTxt.innerHTML = currentItem.name + '\'s contact details'
+		navTxt.innerHTML = currentItem.name + '\'s contact details';
 		mode = 'edit';
 		showDetails();
-	})
-
-	document.addEventListener('add', function (e) {
-
 	});
 
 	document.addEventListener('search', function (e) {
@@ -121,11 +306,11 @@
 	function showDetails() {
 		nameTxt.value = '';
 		phoneTxt.value = '';
-		genderRad.forEach(function(ele){
-			ele.checked = false;
-		});
-		profilePic.src = 'img/dummy.png';
-		addAction.classList.remove('hide');
+		for (var i = 0; i < genderRad.length; i++) {
+			genderRad[i].checked = false;
+		}
+		profilePic.src = '../profiles/dummy.png';
+		createAction.classList.remove('hide');
 		editAction.classList.add('hide');
 
 		if(mode == 'edit'){
@@ -152,10 +337,10 @@
 			}
 
 			if(currentItem.profile){
-				profilePic.src = 'img/' + currentItem.profile;
+				profilePic.src = '../profiles/' + currentItem.profile;
 			}
 
-			addAction.classList.add('hide');
+			createAction.classList.add('hide');
 			editAction.classList.remove('hide');
 		}
 
@@ -179,8 +364,6 @@
 		homeBtn.classList.add('fade-out');
 		homeBtn.classList.remove('fade-in');
 		homeBtn.classList.add('delay-hide');
-
-		
 	}
 
 	function hideDetails() {
@@ -210,20 +393,25 @@
 		contactsContainer.innerHTML = '';
 		model.forEach(function (ele) {
 			var item = '';
-			item += '<img class="profile" src="img/' + ele.profile + '" />';
+			item += '<img class="profile" src="../profiles/' + ele.profile + '" />';
 			item += '<div class="details">';
 			item += '<div class="name">' + ele.name + '</div>';
 			item += '<div class="phone">' + ele.phone + '</div>';
 			item += '</div>';
 
 			var contactItem = document.createElement('div');
-			contactItem.classList.add('contact-item', 'button');
+			contactItem.classList.add('contact-item');
+			contactItem.classList.add('button');
 			contactItem.innerHTML = item;
 			contactItem.addEventListener('click', function () {
 				document.dispatchEvent(new CustomEvent('view_contact', { 'detail': ele }));
 			});
 			contactsContainer.appendChild(contactItem);
 		});
+
+		if(!model.length){
+			contactsContainer.innerHTML = '<p class="no-result">No results</p>';
+		}
 
 		countTxt.innerHTML = 'Total ' + model.length + ' contact' + (model.length <= 1 ? '' : 's');
 	}

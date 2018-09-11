@@ -30,7 +30,7 @@
             <div class="content">
                 <div class="contacts-container">
                     <div class="contact-item button">
-                        <img class="profile" src="img/profile.jpg" />
+                        <img class="profile" src="../profiles/profile.jpg" />
                         <div class="details">
                             <div class="name">Rahul</div>
                             <div class="phone">9962293022</div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="contact-item button">
-                        <img class="profile" src="img/profile.jpg" />
+                        <img class="profile" src="../profiles/profile.jpg" />
                         <div class="details">
                             <div class="name">Mona</div>
                             <div class="phone">9962456022</div>
@@ -47,8 +47,11 @@
                 </div>
 
                 <div class="details-container">
-                    <div class="profile-container">
-                        <img class="profile-pic" src="img/dummy.png" id="profile_pic" />
+                        <div class="profile-container">
+                                <input type="file" name="file" id="file" accept="image/png, image/jpeg" />
+                                <label for="file" class="profile-select">
+                                    <img class="profile-pic" src="../profiles/dummy.png" id="profile_pic"  />
+                                </label>
                     </div>
                     <div class="contact-detail">
                         <input type="text" class="txt detail-txt" placeholder="Enter name" id="name_txt" oninput="this.value = this.value.replace(/[^a-z A-Z.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength=20/>
@@ -57,27 +60,27 @@
                         <div class="gender-container">
                             <label class="radio-container">
                                 <p>Male</p>
-                                <input type="radio" name="gender">
+                                <input type="radio" name="gender" value="male">
                                 <div class="checkmark icon-male"></div>
                             </label>
 
                             <label class="radio-container">
                                 <p>Female</p>
-                                <input type="radio" name="gender">
+                                <input type="radio" name="gender" value="female">
                                 <div class="checkmark icon-female"></div>
                             </label>
 
                             <label class="radio-container">
                                 <p>Other</p>
-                                <input type="radio" name="gender">
+                                <input type="radio" name="gender" value="other">
                                 <div class="checkmark icon-other"></div>
                             </label>
                         </div>
-                        <div class="action-container hide" id="add_action">
-                            <div class="button action-btn primary" id="add_btn">Create</div>
+                        <div class="action-container add hide" id="create_action">
+                            <div class="button action-btn primary" id="create_btn">Create</div>
                         </div>
 
-                        <div class="action-container hide" id="edit_action">
+                        <div class="action-container edit hide" id="edit_action">
                                 <div class="button action-btn danger" id="delete_btn">Delete</div>
                                 <div class="button action-btn warning" id="update_btn">Update</div>
                             </div>
@@ -91,6 +94,34 @@
                 <div class="txt count-txt" id="count_txt">Total 0 contact</div>
                 <div class="button fullscreen-btn icon icon-fullscreen" id="fullscreen_btn"></div>
             </div>
+
+            <div class="lightbox fade-out delay-hide" id="lightbox"></div>
+            <div class="confirm fade-out modal delay-hide" id="confirm_modal">
+                <div class="modal-header">
+                    <p class="modal-title" id="confirm_title">Confirm</p>
+                    <div class="modal-close button icon icon-close" id="confirm_close"></div>
+                </div>
+                <div class="modal-body">
+                    <p class="msg-txt" id="confirm_txt">Are you sure you want to delete the contact?</p>
+                    <div class="modal-action">
+                        <div class="action-btn primary button" id="confirm_no">No</div>
+                        <div class="action-btn warning button" id="confirm_yes">Yes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert fade-out modal delay-hide" id="alert_modal">
+                    <div class="modal-header">
+                        <p class="modal-title" id="alert_title">Info</p>
+                        <div class="modal-close button icon icon-close" id="alert_close"></div>
+                    </div>
+                    <div class="modal-body">
+                        <p class="msg-txt" id="alert_txt">A sample alert message</p>
+                        <div class="modal-action">
+                            <div class="action-btn primary button" id="alert_ok">OK</div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <script src="js/pollyfill.js"></script>
