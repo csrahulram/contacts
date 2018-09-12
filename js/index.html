@@ -48,11 +48,12 @@
 
                 <div class="details-container">
                         <div class="profile-container">
+                                <div class="lds-ring fade-out delay-hide" id="loader"><div></div><div></div><div></div><div></div></div>
                                 <input type="file" name="file" id="file" accept="image/png, image/jpeg" />
                                 <label for="file" class="profile-select">
                                     <img class="profile-pic" src="../profiles/dummy.png" id="profile_pic"  />
                                 </label>
-                    </div>
+                         </div>
                     <div class="contact-detail">
                         <input type="text" class="txt detail-txt" placeholder="Enter name" id="name_txt" oninput="this.value = this.value.replace(/[^a-z A-Z.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength=20/>
                         <input type="text" class="txt detail-txt" placeholder="Enter phone" id="phone_txt" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength=10/>

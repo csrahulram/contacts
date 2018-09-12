@@ -157,7 +157,7 @@ var server = http.createServer(app);
 
 reload(server, app);
 
-server.listen(8080, '192.168.0.103', () => {
+server.listen(8080, 'localhost', () => {
     console.log('Server listerning 8080');
     startDatabase();
 });

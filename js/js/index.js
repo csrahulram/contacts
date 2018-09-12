@@ -92,6 +92,7 @@
 	let lightbox = $('#lightbox');
 	let confirmTxt = $('#confirm_txt');
 	let alertTxt = $('#alert_txt');
+	let loader = $('#loader');
 	// Local variable ends
 	
 	/* Primary window functions*/
@@ -179,6 +180,9 @@
 	
 
 	fileInp.onchange = function(){
+		loader.classList.remove('delay-hide');
+		loader.classList.remove('fade-out');
+		loader.classList.add('fade-in');
 		let formData = new FormData();
 		let xhr = new XMLHttpRequest();
 		formData.append("profile", this.files[0]);
@@ -188,6 +192,9 @@
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				profilePic.src = '../profiles/' + currentItem.profile;
+				loader.classList.add('delay-hide');
+				loader.classList.add('fade-out');
+				loader.classList.remove('fade-in');
 			}
 		};
 
