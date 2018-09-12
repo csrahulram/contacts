@@ -14,15 +14,5 @@ export class HeaderComponent implements OnInit {
   constructor(private contactService: ContactService) { }
 
   ngOnInit() { }
-
-
-
-  add() {
-    const contact: Contact = {
-      id: this.contactService.contactModel.length,
-      name: 'New contact',
-      phone: 'New number'
-    };
-    this.contactService.addContact(contact);
-  }
+  
 }

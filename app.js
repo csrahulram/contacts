@@ -32,6 +32,16 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+const cors = require('cors')
+
+var corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+}
+
+app.use(cors(corsOptions))
+
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
@@ -49,6 +59,7 @@ app.get('/ng', (req, res) => {
 });
 
 app.get('/api/read', (req, res) => {
+    console.log('Comming')
     res.status(200).send(data);
 });
 

@@ -1,9 +1,457 @@
-/* You can add global styles to this file, and also import other style files */
-p{
-    margin: 0;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}
+
+ .root{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1fc8db;
+    background-image: radial-gradient(#9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    /* color: #ffffff; */
+    /* opacity: 0.95; */
+ }
+
+
+
+
+
+.slide-left{
+	left: -100% !important;
+	transition: 0.5s;
+}
+
+.slide-center{
+	left: 0 !important;
+	transition: 0.5s;
+}
+
+.slide-right{
+	left: 100% !important;
+	transition: 0.5s;
+}
+
+.delay-hide{
+	transition-delay: 0.5s;
+	transition: 0.5s;
+	visibility: hidden;
 }
 
 
-.btn{
-    cursor: pointer;
+
+
+
+
+
+.icon {
+	width: 30px;
+	height: 30px;
+	background-size: cover;
 }
+
+.add-btn{
+	margin: 20px;
+	right: 0;
+    position: absolute;
+}
+
+.home-btn{
+	margin: 20px;
+    position: absolute;
+}
+
+.delete-btn{
+	background-image: url("assets/delete.png");
+    margin-top: 15px;
+    margin-right: 25px;
+    position: absolute;
+    right: 0;
+}
+
+.delete-btn:hover{
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn{
+	background-image: url("assets/edit.png");
+    margin-top: 15px;
+    margin-right: 65px;
+    position: absolute;
+    right: 0;
+}
+
+.edit-btn:hover{
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.icon-plus {
+	background-image: url(assets/add.png);
+}
+
+.icon-back{
+	background-image: url(assets/back.png);
+}
+
+.icon-search {
+	background-image: url(assets/search.png);
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.icon-close{
+	background-image: url(assets/close.png);
+}
+
+.fade-out{
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.fade-in{
+	opacity: 1;
+	transition: 0.5s;
+}
+
+
+
+.icon-home {
+	background-image: url(assets/home.png);
+}
+
+.icon-fullscreen {
+	background-image: url(assets/fullscreen.png);
+}
+
+
+
+.txt{
+    outline: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title-txt{
+	position: absolute;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+    color: white;
+}
+
+.button {
+	cursor: pointer;
+}
+
+.contacts-container{
+    position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 0;
+    width:100%;
+}
+
+.modal-close{
+	position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.details-container{
+    position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 100%;
+    width:100%;
+}
+
+.contact {
+	height: 80px;
+	border-bottom: 0.2px solid rgba(0, 0, 0, 0.4);
+	padding-top: 10px;
+	box-sizing: border-box;
+	padding-left: 10px;
+	border-radius: 3px;
+}
+
+.contact-item{
+	display: flex;
+	padding: 10px;
+	border-bottom: 1px solid #ededed;
+}
+
+.contact-item:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.details {
+	margin-top: 5px;
+    margin-left: 20px;
+}
+
+.name {
+	font-size: 20px;
+    line-height: 30px;
+    color: #74adb1;
+}
+
+.phone {
+	line-height: 30px;
+    font-size: 25px;
+    color: #8c8c8c;
+}
+
+.noclick {
+	pointer-events: none;
+}
+
+.modal {
+	width: 80%;
+    height: 280px;
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 5px 20px 7px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 5px 20px 7px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 5px 20px 7px rgba(0,0,0,0.35);
+}
+
+.close-btn {
+	background-image: url("assets/close.png");
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+	width: 30px;
+	height: 30px;
+	background-size: cover;
+}
+
+.modal-header {
+	width: 100%;
+    height: 60px;
+    background-color: #32b3d1;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.modal-body {
+	background-color: white;
+    width: 100%;
+    height: 240px;
+    /* padding-top: 25px; */
+    /* padding-left: 35px; */
+    box-sizing: border-box;
+    overflow: hidden;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    /* padding-right: 35px; */
+}
+
+.modal-action{
+	display: flex;
+    justify-content: center;
+    /* margin-top: 50px; */
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
+
+
+.modal-title {
+	font-size: 21px;
+    font-weight: lighter;
+    color: white;
+    line-height: 60px;
+    padding-left: 20px;
+    position: absolute;
+}
+
+.msg-txt{
+	text-align: center;
+    font-size: 30px;
+    font-weight: lighter;
+    color: #88adb1;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+
+
+
+
+
+.lightbox{
+	position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.button-wrapper{
+    margin-top: 50px;
+}
+
+.action-btn{
+	width: 150px;
+    font-size: 26px;
+    box-sizing: border-box;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px 20px 10px 20px;
+    color: white;
+    transition: 0.5s;
+}
+
+.action-btn:hover{
+	opacity: 0.8;
+	transition: 0.5s;
+}
+
+.primary{
+	background-color: #337ab7;
+}
+
+.success{
+	background-color: #5cb85c;
+}
+
+.danger{
+	background-color: #d9534f;
+}
+
+.warning{
+	background-color: #f0ad4e;
+}
+
+
+
+.icon-male{
+	background-image: url("assets/male.png");
+  }
+
+  .icon-female{
+	background-image: url("assets/female.png");
+  }
+.icon-other{
+	background-image: url("assets/other.png");
+}
+
+
+.disable{
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+/* Extra small devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {  }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {  }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }
+
+@media only screen and (max-width: 430px){
+	
+}
+
+.hide{
+	display: none !important;
+}
+
+.shake {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+	transform: translate3d(0, 0, 0);
+	backface-visibility: hidden;
+	perspective: 1000px;
+  }
+  
+  @keyframes shake {
+	10%, 90% {
+	  transform: translate3d(-1px, 0, 0);
+	}
+	
+	20%, 80% {
+	  transform: translate3d(2px, 0, 0);
+	}
+  
+	30%, 50%, 70% {
+	  transform: translate3d(-4px, 0, 0);
+	}
+  
+	40%, 60% {
+	  transform: translate3d(4px, 0, 0);
+	}
+  }

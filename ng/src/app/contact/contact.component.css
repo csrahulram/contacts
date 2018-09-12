@@ -1,6 +1,36 @@
 :host{
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ededed;
+}
+
+:host:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.profile {
     display: block;
-    height: 50px;
-    margin: 5px;
-    border: 1px solid black;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    object-fit: cover;
+    object-position: top;
+}
+
+.details {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.name {
+    font-size: 20px;
+    line-height: 30px;
+    color: #74adb1;
+}
+
+.phone {
+    line-height: 30px;
+    font-size: 25px;
+    color: #8c8c8c;
 }

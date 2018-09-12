@@ -1,0 +1,17 @@
+:host{
+    display:block;
+}
+
+.back-btn{
+	position: absolute;
+	left: 0;
+}
+
+
+.nav-txt{
+	position: absolute;
+    width: 100%;
+    margin-top: 8px;
+    color: white;
+    margin-left: 5px;
+}

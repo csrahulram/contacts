@@ -6,19 +6,12 @@ import { ContactService } from '../contact.service';
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],
-  host: {'(click)':'deleteContact()'}
+  host: {'(click)':'deleteContact()', 'class':'button' }
 })
 export class ContactComponent implements OnInit {
   @Input() contact: Contact;
+  
   constructor(private contactService: ContactService) { }
 
-  ngOnInit() {
-  }
-
-  deleteContact() {
-    this.contactService.delete(this.contact);
-  }
-
-
-
+  ngOnInit() { }
 }

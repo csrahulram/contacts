@@ -1,13 +1,27 @@
 :host{
-    display: flex;
-    height: 30px;
-    border: 1px solid black;
+    display: block;
 }
 
-.search-btn{
-    background-image: url(../../assets/icons8-google-web-search-24.png);
-    width: 30px;
+.search-txt{
     height: 30px;
-    background-position: center;
-    background-repeat: no-repeat;
+    width: 100%;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: rgba(48,48,48, 0.29);
+    color: #ffffff;
+    font-size: 16px;
+    padding-left: 20px;
+    padding-right: 12px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.search-txt::placeholder{
+	color: rgba(225, 225, 225, 0.87);
+}
+
+.search-txt::-ms-placeholder{
+	color: rgba(225, 225, 225, 0.87);
 }

@@ -11,6 +11,11 @@ import { ContentComponent } from './content/content.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './contact/contact.component';
 import { SearchComponent } from './search/search.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { DetailsComponent } from './details/details.component';
+import { AlertComponent } from './alert/alert.component';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +24,16 @@ import { SearchComponent } from './search/search.component';
     ContentComponent,
     FooterComponent,
     ContactComponent,
-    SearchComponent
+    SearchComponent,
+    ContactsComponent,
+    DetailsComponent,
+    AlertComponent,
+    ConfirmComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false, delay: 200 }
-    )
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

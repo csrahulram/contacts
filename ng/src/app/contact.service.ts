@@ -21,18 +21,34 @@ export class ContactService {
 
   private contactsUrl = 'api/contacts';
 
-  public contactModel: Contact[] = Contacts;
+  private contactModel: Contact[] = Contacts;
 
   private id = 0;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.httpClient.get('http://192.168.0.103:8080/api/read').subscribe((data: any) => {this.contactModel = data; console.log(data)});
+   }
+
+  getContacts(): Contact[]{
+    return this.contactModel;
+  }
 
   addContact(contact: Contact): void {
     contact.id = this.id++;
     this.contactModel.push(contact);
   }
 
-  delete(contact: Contact) {
+  updateContact(contact:Contact):void {
+    this.contactModel.forEach(item => {
+      if(contact.id == item.id){
+        item = contact;
+      }
+    })
+  }
+
+
+
+  deleteContact(contact: Contact) {
     this.contactModel.splice(this.contactModel.indexOf(contact), 1);
   }
 }

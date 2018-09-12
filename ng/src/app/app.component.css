@@ -1,8 +1,23 @@
 :host {
-  display: block;
-  width: 250px;
-  height: 400px;
-  border: 1px solid black;
-  margin-left: auto;
-  margin-right: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+  font-family: calibri;
+  border-radius: 15px;
+}
+
+@media (min-width: 576px){
+  :host {
+      width: 100%;
+      height: calc(100% - 100px);
+      max-width: 480px;
+      transform: translateX(-50%);
+      left: 50%;
+      top: 50px;
+      -webkit-box-shadow: 0px 5px 20px 7px rgba(0, 0, 0, 0.35);
+      -moz-box-shadow: 0px 5px 20px 7px rgba(0, 0, 0, 0.35);
+      box-shadow: 0px 5px 20px 7px rgba(0,0,0,0.35);
+  }
 }

@@ -1,0 +1,38 @@
+<div class="profile-container">
+            <input type="file" name="file" id="file" accept="image/png, image/jpeg">
+            <label for="file" class="profile-select">
+                <img class="profile-pic" src="../profiles/dummy.png" id="profile_pic">
+            </label>
+</div>
+<div class="contact-detail">
+    <input type="text" class="txt detail-txt" placeholder="Enter name" id="name_txt" oninput="this.value = this.value.replace(/[^a-z A-Z.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength="20/">
+    <input type="text" class="txt detail-txt" placeholder="Enter phone" id="phone_txt" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength="10/">
+
+    <div class="gender-container">
+        <label class="radio-container">
+            <p>Male</p>
+            <input type="radio" name="gender" value="male">
+            <div class="checkmark icon-male"></div>
+        </label>
+
+        <label class="radio-container">
+            <p>Female</p>
+            <input type="radio" name="gender" value="female">
+            <div class="checkmark icon-female"></div>
+        </label>
+
+        <label class="radio-container">
+            <p>Other</p>
+            <input type="radio" name="gender" value="other">
+            <div class="checkmark icon-other"></div>
+        </label>
+    </div>
+    <div class="action-container add" id="create_action" *ngIf="false">
+        <div class="button action-btn primary" id="create_btn">Create</div>
+    </div>
+
+    <div class="action-container edit" id="edit_action">
+            <div class="button action-btn danger" id="delete_btn">Delete</div>
+            <div class="button action-btn warning" id="update_btn">Update</div>
+        </div>
+</div>
