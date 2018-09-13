@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ContactService } from './contact.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Simple List Application';
+  constructor(private contactService:ContactService){
+
+  }
 }

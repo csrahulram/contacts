@@ -10,7 +10,6 @@ import { ContactService } from '../contact.service';
 })
 export class HeaderComponent implements OnInit {
 
-
   constructor(private contactService: ContactService) { }
 
   ngOnInit() { }

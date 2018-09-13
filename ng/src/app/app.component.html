@@ -1,5 +1,5 @@
 <app-header></app-header>
 <app-content></app-content>
 <app-footer></app-footer>
-<app-confirm class="lightbox" *ngIf="false"></app-confirm>
-<app-alert class="lightbox" *ngIf="false"></app-alert>
+<app-confirm class="lightbox" [ngClass]="contactService.confirm ? 'fade-in':'fade-out delay-hide'"></app-confirm>
+<app-alert class="lightbox" [ngClass]="contactService.alert ? 'fade-in':'fade-out delay-hide'"></app-alert>

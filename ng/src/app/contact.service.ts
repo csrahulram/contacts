@@ -25,9 +25,26 @@ export class ContactService {
 
   private id = 0;
 
+  public showDetails: boolean = false;
+  public edit: boolean = false;
+  public currentContact: any = {
+    name: '',
+    phone: '',
+    gender: '',
+    profile: ''
+  }
+
+  public alertMsg:string;
+  public alert:boolean = false;
+  private alertCallback;
+
+  public confirmMsg:string;
+  public confirm:boolean = false;
+  private confirmCallback;
+
   constructor(private httpClient: HttpClient) {
-    this.httpClient.get('http://192.168.0.103:8080/api/read').subscribe((data: any) => {this.contactModel = data; console.log(data)});
-   }
+    this.httpClient.get('/api/read').subscribe((data: any) => {this.contactModel = data; console.log(data)});
+  }
 
   getContacts(): Contact[]{
     return this.contactModel;
@@ -46,9 +63,19 @@ export class ContactService {
     })
   }
 
-
-
-  deleteContact(contact: Contact) {
+  deleteContact(contact: Contact):void {
     this.contactModel.splice(this.contactModel.indexOf(contact), 1);
+  }
+
+  showAlert(msg:string, cb:Function = null):void{
+    this.alert = true;
+    this.alertMsg = msg;
+    this.alertCallback = cb || null;
+  }
+
+  hideAlert(){
+    this.alert = false;
+    this.alertMsg = '';
+    this.alertCallback ? this.alertCallback():null;
   }
 }

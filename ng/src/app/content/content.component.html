@@ -1,2 +1,2 @@
-<app-contacts *ngIf="true"></app-contacts>
-<app-details *ngIf="false"></app-details>
+<app-contacts [ngClass]="contactService.showDetails ? 'slide-left':'slide-center'"></app-contacts>
+<app-details [ngClass]="contactService.showDetails ? 'slide-center':'slide-right'"></app-details>

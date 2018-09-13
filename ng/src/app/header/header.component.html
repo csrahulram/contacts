@@ -1,4 +1,4 @@
-<app-search class="head-container" *ngIf="true"></app-search>
-<app-nav class="head-container" *ngIf="false"></app-nav>
-<div class="button home-btn icon icon-home" *ngIf="true"></div>
-<div class="button add-btn icon icon-plus" *ngIf="true"></div>
+<app-search class="head-container" [ngClass]="contactService.showDetails ? 'fade-out delay-hide':'fade-in'"></app-search>
+<app-nav class="head-container" [ngClass]="contactService.showDetails ? 'fade-in':'fade-out delay-hide'"></app-nav>
+<a class="button home-btn icon icon-home" href="/js" [ngClass]="contactService.showDetails ? 'fade-out delay-hide':'fade-in'"></a>
+<div class="button add-btn icon icon-plus" [ngClass]="contactService.showDetails ? 'fade-out delay-hide':'fade-in'" (click)="contactService.showDetails ? contactService.showDetails = false : contactService.showDetails = true"></div>

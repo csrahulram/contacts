@@ -1,0 +1,15 @@
+:host{
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.no-result {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 24px;
+    color: #328ea3;
+}
