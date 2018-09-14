@@ -13,5 +13,17 @@ export class HeaderComponent implements OnInit {
   constructor(private contactService: ContactService) { }
 
   ngOnInit() { }
+
+  add(){
+    this.contactService.showDetails ? this.contactService.showDetails = false : this.contactService.showDetails = true; 
+    this.contactService.edit = false;
+    this.contactService.currentContact = {
+      id: null,
+      name: '',
+      phone: '',
+      gender: '',
+      profile:'dummy.png'
+    }
+  }
   
 }

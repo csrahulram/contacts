@@ -7,7 +7,8 @@
     "start": "node app.js",
     "js": "nodemon app.js",
     "$": "nodemon app.js",
-    "ng": "ng serve -o",
+    "ng": "start cmd /c \"nodemon app.js\" && ng serve -o --proxy-config proxy.config.json",
+    "build":"ng build --base-href /ng/dist/contacts/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

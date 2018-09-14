@@ -1,7 +1,8 @@
 <div class="profile-container">
-            <input type="file" name="file" id="file" accept="image/png, image/jpeg" [(ngModel)]="contactService.currentContact.profile">
+        <div class="lds-ring" [ngClass]="showLoader ? 'fade-in':'fade-out delay-hide'" ><div></div><div></div><div></div><div></div></div>
+            <input type="file" name="file" id="file" accept="image/png, image/jpeg" (change)="updateProfile($event)">
             <label for="file" class="profile-select">
-                <img class="profile-pic" src="../../../profiles/dummy.png" id="profile_pic">
+                <img class="profile-pic" src="{{this.contactService.base}}profiles/{{this.contactService.currentContact.profile}}" id="profile_pic">
             </label>
 </div>
 <div class="contact-detail">
@@ -27,12 +28,12 @@
             <div class="checkmark icon-other"></div>
         </label>
     </div>
-    <div class="action-container add" [ngClass]="contactService.edit ? 'hide':''">
+    <div class="action-container add" *ngIf="!contactService.edit">
         <div class="button action-btn primary" (click)="create()">Create</div>
     </div>
 
-    <div class="action-container edit" [ngClass]="!contactService.edit ? 'hide':''">
-            <div class="button action-btn danger" id="delete_btn">Delete</div>
-            <div class="button action-btn warning" id="update_btn">Update</div>
+    <div class="action-container edit" *ngIf="contactService.edit">
+            <div class="button action-btn danger" (click)="delete()">Delete</div>
+            <div class="button action-btn warning" (click)="update()">Update</div>
         </div>
 </div>

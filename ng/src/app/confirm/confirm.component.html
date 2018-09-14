@@ -1,13 +1,13 @@
-<div class="confirm modal" id="confirm_modal">
+<div class="confirm modal">
     <div class="modal-header">
-        <p class="modal-title" id="confirm_title">Confirm</p>
-        <div class="modal-close button icon icon-close" id="confirm_close"></div>
+        <p class="modal-title">Confirm</p>
+        <div class="modal-close button icon icon-close" (click)="contactService.hideConfirm('close')"></div>
     </div>
     <div class="modal-body">
-        <p class="msg-txt" id="confirm_txt">Are you sure you want to delete the contact?</p>
+        <p class="msg-txt">{{this.contactService.confirmMsg}}</p>
         <div class="modal-action">
-            <div class="action-btn primary button" id="confirm_no">No</div>
-            <div class="action-btn warning button" id="confirm_yes">Yes</div>
+            <div class="action-btn primary button" (click)="contactService.hideConfirm('no')">No</div>
+            <div class="action-btn warning button" (click)="contactService.hideConfirm('yes')">Yes</div>
         </div>
     </div>
 </div>

@@ -59,11 +59,11 @@ app.get('/ng', (req, res) => {
 });
 
 app.get('/api/read', (req, res) => {
-    console.log('Comming')
     res.status(200).send(data);
 });
 
 app.delete('/api/delete', (req, res) => {
+    console.log(req.body);
     data.forEach(function (ele, ind) {
         if (req.body.id == ele.id) {
             data.splice(ind, 1);
@@ -83,7 +83,8 @@ app.put('/api/update', (req, res) => {
 });
 
 app.post('/api/upload', (req, res) => {
-    //var files = [];
+    console.log('comming')
+    var _file;
     //console.log('Incomming upload stream...');
     // create an incoming form object
     var form = new formidable.IncomingForm();
@@ -93,6 +94,7 @@ app.post('/api/upload', (req, res) => {
     form.uploadDir = path.join(__dirname, '/profiles/');
 
     form.on('fileBegin', function (name, file){
+        _file = file;
         file.path = __dirname + '/profiles/' + file.name;
     });
 
@@ -106,18 +108,20 @@ app.post('/api/upload', (req, res) => {
 
 
     // // once all the files have been uploaded, send a response to the client
-    // form.on('end', () => {
-    //     console.log('All file(s) recieved successfully ' + files);
-    //     console.log('Processing uploaded file(s)...\n');
-    //     // fileProcessor.process(files, (e) => {
-    //     //   console.log('All file(s) processed successfully\n');
-    //     //   pushToDb.startPushing(e.data.files, (data) => {
-    //     //     //console.log(data);
-    //     //     console.log('Return data back to client');
-    //     //     res.send({ 'status': 201, 'message': 'Your file(s) is processed successfully.', 'data':data});
-    //     //   });
-    //     // });
-    // });
+    form.on('end', (files) => {
+        //console.log('All file(s) recieved successfully ' + files);
+        //console.log('Processing uploaded file(s)...\n');
+        // fileProcessor.process(files, (e) => {
+        //   console.log('All file(s) processed successfully\n');
+        //   pushToDb.startPushing(e.data.files, (data) => {
+        //     //console.log(data);
+        //     console.log('Return data back to client');
+        //     res.send({ 'status': 201, 'message': 'Your file(s) is processed successfully.', 'data':data});
+        //   });
+        // });
+        console.log(_file);
+        res.send({ 'status': 201, 'message': 'Profile uploaded successfully', 'data':{'name':_file.name}});
+    });
     // parse the incoming request containing the form data
     form.parse(req);
 
@@ -127,7 +131,7 @@ app.post('/api/upload', (req, res) => {
     //     req.body.profile = 'dummy.png';
     // }
     // data.push(req.body);
-     res.status(200).send('Picture upload success');
+     //res.status(200).send('Picture upload success');
 });
 
 app.post('/api/add', function(req, res){

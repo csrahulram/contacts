@@ -22,14 +22,15 @@ export class ContactService {
   private contactModel: Contact[] = Contacts;
 
   private id = 0;
-
+  public base: string = 'http://localhost:8080/';
   public showDetails: boolean = false;
   public edit: boolean = false;
   public currentContact: any = {
+    id : null,
     name: '',
     phone: '',
     gender: '',
-    profile: ''
+    profile: 'dummy.png'
   }
 
   public alertMsg:string;
@@ -41,23 +42,30 @@ export class ContactService {
   private confirmCallback;
 
   constructor(private httpClient: HttpClient) {
-    this.httpClient.get('/api/read').subscribe((data: any) => {this.contactModel = data; console.log(data)});
+    this.httpClient.get('/api/read').subscribe((data: any) => {this.contactModel = data});
   }
 
-  addContact(): void {
-    this.httpClient.post('/api/add', this.currentContact).subscribe((data: any) => {this.contactModel = data; console.log(data)});
+  addContact(cb:Function = null): void {
+    this.httpClient.post('/api/add', this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
   }
 
-  updateContact(contact:Contact):void {
-    this.contactModel.forEach(item => {
-      if(contact.id == item.id){
-        item = contact;
-      }
-    })
+  updateContact(cb:Function = null):void {
+    this.httpClient.put('/api/update', this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
   }
 
-  deleteContact(contact: Contact):void {
-    this.contactModel.splice(this.contactModel.indexOf(contact), 1);
+  deleteContact(cb:Function = null):void {
+    this.httpClient.delete('/api/delete', this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
+  }
+
+  uploadProfile(formData: FormData, cb:Function = null){
+    this.httpClient.post(this.base + 'api/upload', formData).subscribe(
+      event=>{
+        console.log(event)
+        cb ? cb(event):null;
+      }, 
+      error=>{
+          console.log(error)
+      });
   }
 
   showAlert(msg:string, cb:Function = null):void{
@@ -70,5 +78,17 @@ export class ContactService {
     this.alert = false;
     this.alertMsg = '';
     this.alertCallback ? this.alertCallback():null;
+  }
+
+  showConfirm(msg:string, cb:Function = null):void{
+    this.confirm = true;
+    this.confirmMsg = msg;
+    this.confirmCallback = cb || null;
+  }
+
+  hideConfirm(data){
+    this.confirm = false;
+    this.confirmMsg = '';
+    this.confirmCallback ? this.confirmCallback(data):null;
   }
 }
