@@ -39,7 +39,7 @@ var corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 
 app.get('/', (req, res) => {
@@ -130,7 +130,7 @@ app.post('/api/upload', (req, res) => {
      res.status(200).send('Picture upload success');
 });
 
-app.put('/api/add', function(req, res){
+app.post('/api/add', function(req, res){
     req.body.id = getId();
     if(!req.body.profile){
         req.body.profile = 'dummy.png';

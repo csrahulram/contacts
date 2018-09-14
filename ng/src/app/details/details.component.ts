@@ -53,6 +53,10 @@ export class DetailsComponent implements OnInit {
       return false;
     }
 
+    this.contactService.addContact();
+
+    this.contactService.showDetails = false;
+
     
   }
 

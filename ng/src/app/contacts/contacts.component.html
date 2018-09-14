@@ -1,2 +1,2 @@
-<p class="no-result" *ngIf="!contactService.getContacts().length">No results</p>
-<app-contact *ngFor="let contact of contactService.getContacts()" [contact]="contact"></app-contact>
+<p class="no-result" *ngIf="!contactService.contactModel.length">No results</p>
+<app-contact *ngFor="let contact of contactService.contactModel" [contact]="contact"></app-contact>

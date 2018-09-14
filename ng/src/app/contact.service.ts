@@ -19,8 +19,6 @@ const httpOptions = {
 
 export class ContactService {
 
-  private contactsUrl = 'api/contacts';
-
   private contactModel: Contact[] = Contacts;
 
   private id = 0;
@@ -46,13 +44,8 @@ export class ContactService {
     this.httpClient.get('/api/read').subscribe((data: any) => {this.contactModel = data; console.log(data)});
   }
 
-  getContacts(): Contact[]{
-    return this.contactModel;
-  }
-
-  addContact(contact: Contact): void {
-    contact.id = this.id++;
-    this.contactModel.push(contact);
+  addContact(): void {
+    this.httpClient.post('/api/add', this.currentContact).subscribe((data: any) => {this.contactModel = data; console.log(data)});
   }
 
   updateContact(contact:Contact):void {
