@@ -149,7 +149,8 @@ app.get('/api/search/:query', (req, res) => {
         var a = req.params.query.toLowerCase() || '';
         var b = ele.name.toLowerCase();
         var c = ele.phone.toLowerCase();
-        if (b.indexOf(a) != -1 || c.indexOf(a) != -1) {
+        var d = ele.gender.toLowerCase();
+        if (b.indexOf(a) != -1 || c.indexOf(a) != -1 || d.indexOf(a) != -1) {
             search.push(ele);
         }
     });

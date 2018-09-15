@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ContactService } from '../contact.service';
-import { HttpRequest, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-details',

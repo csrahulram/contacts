@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
@@ -45,6 +45,10 @@ export class ContactService {
     this.httpClient.get('/api/read').subscribe((data: any) => {this.contactModel = data});
   }
 
+  getAllContacts(cb:Function = null): void {
+    this.httpClient.get('/api/read').subscribe((data: any) => {this.contactModel = data; cb?cb():null});
+  }
+
   addContact(cb:Function = null): void {
     this.httpClient.post('/api/add', this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
   }
@@ -54,7 +58,11 @@ export class ContactService {
   }
 
   deleteContact(cb:Function = null):void {
-    this.httpClient.delete('/api/delete/' + this.currentContact.id, this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
+    this.httpClient.delete('/api/delete/' + this.currentContact.id).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
+  }
+
+  searchContact(query: string): void{
+    this.httpClient.get('/api/search/' + query).subscribe((data: any) => {this.contactModel = data;});
   }
 
   uploadProfile(formData: FormData, cb:Function = null){
@@ -91,4 +99,30 @@ export class ContactService {
     this.confirmMsg = '';
     this.confirmCallback ? this.confirmCallback(data):null;
   }
+
+  /* View in fullscreen */
+	openFullscreen() {
+    const root = document.querySelector('.root');
+		if (root['requestFullscreen']) {
+			root['requestFullscreen']();
+		} else if (root['mozRequestFullScreen']) { /* Firefox */
+			root['mozRequestFullScreen']();
+		} else if (root['webkitRequestFullscreen']) { /* Chrome, Safari and Opera */
+			root['webkitRequestFullscreen']();
+		} else if (root['msRequestFullscreen']) { /* IE/Edge */
+			root['msRequestFullscreen']();
+		}
+	}
+	/* Close fullscreen */
+	closeFullscreen() {
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document['mozCancelFullScreen']) { /* Firefox */
+			document['mozCancelFullScreen']();
+		} else if (document['webkitExitFullscreen']) { /* Chrome, Safari and Opera */
+			document.webkitExitFullscreen();
+		} else if (document['msExitFullscreen']) { /* IE/Edge */
+			document['msExitFullscreen']();
+		}
+	}
 }

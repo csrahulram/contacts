@@ -7,7 +7,7 @@ import { ContactService } from './contact.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Simple List Application';
+  title = 'Simple Contacts Application';
   constructor(private contactService:ContactService){
 
   }
