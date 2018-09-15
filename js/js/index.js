@@ -151,9 +151,14 @@
 	}
 
 	searchTxt.onkeyup =  function(){
-		ajax('POST', 'search', {'query' : this.value}, function(data){
-			render(data);
-		})
+		if(this.value != ''){
+			ajax('GET', 'search/' + (this.value || '-1'), {}, function(data){
+				render(data);
+			});
+		} else {
+			getAll();
+		}
+		
 	};
 
 
@@ -167,7 +172,7 @@
 
 	deleteBtn.onclick = function(){
 		confirm('This contact will be deleted.', function(){
-			ajax('DELETE', 'delete', currentItem, function(data){
+			ajax('DELETE', 'delete/' + currentItem.id, {}, function(data){
 				render(data);
 				hideDetails();
 				closeConfirm();
@@ -239,7 +244,7 @@
 
 		createBtn.classList.add('disable');
 
-		ajax('PUT', 'add', currentItem, function(data){
+		ajax('POST', 'add', currentItem, function(data){
 			render(data);
 			hideDetails();
 			createBtn.classList.remove('disable');
@@ -305,7 +310,7 @@
 	});
 
 	document.addEventListener('search', function (e) {
-		ajax('POST', 'search', { 'query': $('search_txt').value }, function (data) {
+		ajax('GET', 'search/' + { 'query': $('search_txt').value },{}, function (data) {
 			render(data);
 		});
 	});
@@ -423,7 +428,12 @@
 		countTxt.innerHTML = 'Total ' + model.length + ' contact' + (model.length <= 1 ? '' : 's');
 	}
 
-	ajax('GET', 'read', {}, function (data) {
-		render(data);
-	});
+	function getAll(){
+		ajax('GET', 'read', {}, function (data) {
+			render(data);
+		});
+	}
+
+	getAll();
+	
 }());

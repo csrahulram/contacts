@@ -62,10 +62,9 @@ app.get('/api/read', (req, res) => {
     res.status(200).send(data);
 });
 
-app.delete('/api/delete', (req, res) => {
-    console.log(req.body);
+app.delete('/api/delete/:id', (req, res) => {
     data.forEach(function (ele, ind) {
-        if (req.body.id == ele.id) {
+        if (req.params.id == ele.id) {
             data.splice(ind, 1);
         }
     });
@@ -144,10 +143,10 @@ app.post('/api/add', function(req, res){
 })
 
 
-app.post('/api/search', (req, res) => {
+app.get('/api/search/:query', (req, res) => {
     search = [];
     data.forEach(function (ele) {
-        var a = req.body.query.toLowerCase();
+        var a = req.params.query.toLowerCase() || '';
         var b = ele.name.toLowerCase();
         var c = ele.phone.toLowerCase();
         if (b.indexOf(a) != -1 || c.indexOf(a) != -1) {

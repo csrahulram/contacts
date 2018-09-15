@@ -54,7 +54,7 @@ export class ContactService {
   }
 
   deleteContact(cb:Function = null):void {
-    this.httpClient.delete('/api/delete', this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
+    this.httpClient.delete('/api/delete/' + this.currentContact.id, this.currentContact).subscribe((data: any) => {this.contactModel = data; cb?cb():null});
   }
 
   uploadProfile(formData: FormData, cb:Function = null){
