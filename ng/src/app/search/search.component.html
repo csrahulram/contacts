@@ -1,1 +1,3 @@
+<a class="button home-btn icon icon-home" href="/" [ngClass]="contactService.showDetails ? 'fade-out delay-hide':'fade-in'"></a>
 <input type="textbox" class="txt search-txt" placeholder="Search" (keyup)="doSearch($event)"/>
+<div class="button add-btn icon icon-plus" [ngClass]="contactService.showDetails ? 'fade-out delay-hide':'fade-in'" (click)="add()"></div>

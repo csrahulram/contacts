@@ -146,13 +146,14 @@ body {
 }
 
 .add-btn{
-	margin: 20px;
-	right: 0;
+    right: 0;
+    top: 0;
     position: absolute;
 }
 
 .home-btn{
-	margin: 20px;
+    left: 0;
+    top: 0;
     position: absolute;
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ContactService } from '../contact.service';
+import { ActivatedRoute, Router, RouterStateSnapshot  } from '@angular/router';
 
 
 @Component({
@@ -15,9 +16,10 @@ export class DetailsComponent implements OnInit {
   @ViewChild('contact_gender') contactGender: ElementRef;
 
   showLoader:boolean = false;
-  constructor(private contactService:ContactService) { }
+  constructor(private contactService:ContactService, private router:Router) { }
 
   ngOnInit() {
+    //this.contactService.showDetails = true;
   }
 
   checkData(){
@@ -55,14 +57,17 @@ export class DetailsComponent implements OnInit {
       return false;
     }
 
-    this.contactService.addContact();
+    this.contactService.addContact(()=>{
+      this.contactService.showDetails = false;
+      this.router.navigate(['contacts']);
+    })
 
-    this.contactService.showDetails = false;
+    
 
     
   }
 
-  update(){
+  edit(){
     if(this.contactService.currentContact.name == ''){
       this.contactService.showAlert('Contact name is required', ()=>{
         this.contactName.nativeElement.classList.add('shake');
@@ -95,6 +100,7 @@ export class DetailsComponent implements OnInit {
 
     this.contactService.updateContact(()=>{
       this.contactService.showDetails = false;
+      this.router.navigate(['contacts']);
     });
 
     
@@ -104,8 +110,11 @@ export class DetailsComponent implements OnInit {
     this.contactService.showConfirm('This contact will be deleted', (data)=>{
       if(data == 'yes'){
         this.contactService.deleteContact();
+        this.contactService.showDetails = false;
+        this.router.navigate(['contacts']);
       }
-      this.contactService.showDetails = false;
+      
+
     })
   }
 

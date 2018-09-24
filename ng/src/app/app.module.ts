@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 
@@ -36,7 +37,29 @@ import { ValidateDirective } from './validate.directive';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([
+      {
+        path: 'contacts',
+        component: ContactsComponent,
+        data: { state: 'home' }
+      },
+      {
+        path: 'details/:id',
+        component: DetailsComponent,
+        data: { state: 'details' }
+      },
+      {
+        path: 'new',
+        component: DetailsComponent,
+        data: { state: 'details' }
+      },
+      {
+        path: '',
+        redirectTo: 'contacts',
+        pathMatch: 'full'
+      }
+    ],  { enableTracing: false })
   ],
   providers: [],
   bootstrap: [AppComponent]

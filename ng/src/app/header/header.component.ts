@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Contact } from '../contact';
 import { ContactService } from '../contact.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,20 +11,12 @@ import { ContactService } from '../contact.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private contactService: ContactService) { }
+  constructor(private contactService: ContactService, private router:Router) { }
 
-  ngOnInit() { }
-
-  add(){
-    this.contactService.showDetails ? this.contactService.showDetails = false : this.contactService.showDetails = true; 
-    this.contactService.edit = false;
-    this.contactService.currentContact = {
-      id: null,
-      name: '',
-      phone: '',
-      gender: '',
-      profile:'dummy.png'
-    }
+  ngOnInit() {
+    
   }
+
+  
   
 }
