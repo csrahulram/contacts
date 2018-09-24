@@ -1,13 +1,21 @@
 <div class="profile-container">
-        <div class="lds-ring" [ngClass]="showLoader ? 'fade-in':'fade-out delay-hide'" ><div></div><div></div><div></div><div></div></div>
-            <input type="file" name="file" id="file" accept="image/png, image/jpeg" (change)="updateProfile($event)">
-            <label for="file" class="profile-select">
-                <img class="profile-pic" src="{{this.contactService.base}}profiles/{{this.contactService.currentContact.profile}}" id="profile_pic">
-            </label>
+    <div class="lds-ring" [ngClass]="showLoader ? 'fade-in':'fade-out delay-hide'">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <input type="file" name="file" id="file" accept="image/png, image/jpeg" (change)="updateProfile($event)">
+    <label for="file" class="profile-select">
+        <img class="profile-pic" src="{{this.contactService.base}}profiles/{{this.contactService.currentContact.profile}}"
+            id="profile_pic">
+    </label>
 </div>
 <div class="contact-detail">
-    <input type="text" class="txt detail-txt" #contact_name placeholder="Enter name" [appValidate]="{'len':20, 'res':'[^a-z A-Z.]'}" [(ngModel)]="contactService.currentContact.name">
-    <input type="text" class="txt detail-txt" #contact_phone placeholder="Enter phone" [appValidate]="{'len':10, 'res':'[^0-9.]'}" [(ngModel)]="contactService.currentContact.phone">
+    <input type="text" class="txt detail-txt" #contact_name placeholder="Enter name" [appValidate]="{'len':20, 'res':'[^a-z A-Z.]'}"
+        [(ngModel)]="contactService.currentContact.name">
+    <input type="text" class="txt detail-txt" #contact_phone placeholder="Enter phone" [appValidate]="{'len':10, 'res':'[^0-9.]'}"
+        [(ngModel)]="contactService.currentContact.phone">
 
     <div class="gender-container" #contact_gender>
         <label class="radio-container">
@@ -33,7 +41,7 @@
     </div>
 
     <div class="action-container edit" *ngIf="contactService.edit">
-            <div class="button action-btn danger" (click)="delete()">Delete</div>
-            <div class="button action-btn warning" (click)="edit()">Update</div>
-        </div>
+        <div class="button action-btn danger" (click)="delete()">Delete</div>
+        <div class="button action-btn warning" (click)="edit()">Update</div>
+    </div>
 </div>

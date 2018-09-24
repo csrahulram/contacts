@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -36,23 +37,24 @@ import { ValidateDirective } from './validate.directive';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       {
         path: 'contacts',
         component: ContactsComponent,
-        data: { state: 'home' }
+        data: { animation: 'ContactsPage' }
       },
       {
         path: 'details/:id',
         component: DetailsComponent,
-        data: { state: 'details' }
+        data: { animation: 'DetailPage' }
       },
       {
         path: 'new',
         component: DetailsComponent,
-        data: { state: 'details' }
+        data: { animation: 'DetailPage' }
       },
       {
         path: '',
