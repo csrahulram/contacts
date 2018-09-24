@@ -6,8 +6,8 @@
             </label>
 </div>
 <div class="contact-detail">
-    <input type="text" class="txt detail-txt" #contact_name placeholder="Enter name" (keydown)="checkData()" [(ngModel)]="contactService.currentContact.name" oninput="this.value = this.value.replace(/[^a-z A-Z.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength="20/">
-    <input type="text" class="txt detail-txt" #contact_phone placeholder="Enter phone" [(ngModel)]="contactService.currentContact.phone" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" maxlength="10/">
+    <input type="text" class="txt detail-txt" #contact_name placeholder="Enter name" [appValidate]="{'len':20, 'res':'[^a-z A-Z.]'}" [(ngModel)]="contactService.currentContact.name">
+    <input type="text" class="txt detail-txt" #contact_phone placeholder="Enter phone" [appValidate]="{'len':10, 'res':'[^0-9.]'}" [(ngModel)]="contactService.currentContact.phone">
 
     <div class="gender-container" #contact_gender>
         <label class="radio-container">

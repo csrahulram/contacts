@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ContactService } from '../contact.service';
 
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -20,7 +21,7 @@ export class DetailsComponent implements OnInit {
   }
 
   checkData(){
-    console.log(this.contactService.currentContact);
+    // console.log(this.contactService.currentContact);
   }
 
   create(){

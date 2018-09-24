@@ -16,6 +16,7 @@ import { DetailsComponent } from './details/details.component';
 import { AlertComponent } from './alert/alert.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { NavComponent } from './nav/nav.component';
+import { ValidateDirective } from './validate.directive';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NavComponent } from './nav/nav.component';
     DetailsComponent,
     AlertComponent,
     ConfirmComponent,
-    NavComponent
+    NavComponent,
+    ValidateDirective
   ],
   imports: [
     BrowserModule,
