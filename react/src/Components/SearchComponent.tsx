@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
+
+interface SearchProps extends HTMLAttributes<HTMLInputElement> {
+  count?: number;
+};
+
+export default class SearchComponent extends React.Component<SearchProps> {
 
 
-export default class SearchComponent extends React.Component {
-  state = {
-    // optional second annotation for better type inference
-    count: 0,
-  };
+  componentDidMount(){
+  
+  }
+   
+
+
   render() {
     return (
-      <div>Count: {this.state.count}</div>
-
+      <div>Test {this.props.count}</div>
     );
   }
 }
